@@ -161,7 +161,7 @@ export default function RoadmapPage() {
               <button
                 onClick={handleGenerateRoadmap}
                 disabled={generating}
-                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
+                className="bg-slate-600 text-white px-6 py-2 rounded-lg hover:bg-slate-700 disabled:opacity-50 transition-colors duration-200"
               >
                 {generating ? 'Generating...' : 'Generate Roadmap'}
               </button>
@@ -202,7 +202,7 @@ export default function RoadmapPage() {
             <button
               onClick={handleGenerateRoadmap}
               disabled={generating}
-              className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
+              className="bg-slate-600 text-white px-6 py-2 rounded-lg hover:bg-slate-700 disabled:opacity-50 transition-colors duration-200"
             >
               {generating ? 'Generating...' : `Generate ${selectedTimeframe}-Day Roadmap`}
             </button>
@@ -264,7 +264,7 @@ export default function RoadmapPage() {
                   handleGenerateRoadmap()
                 }}
                 disabled={generating}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-slate-600 text-white px-6 py-2 rounded-lg hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
               >
                 {generating ? 'Generating...' : `Generate ${selectedTimeframe}-Day Roadmap`}
               </button>

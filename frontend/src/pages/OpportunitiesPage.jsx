@@ -93,9 +93,9 @@ Note: This is a preview. Actual implementation required for real score changes.`
 
   const getCategoryColor = (category) => {
     const colors = {
-      E: 'bg-green-100 text-green-800 border-green-200',
-      S: 'bg-blue-100 text-blue-800 border-blue-200',
-      G: 'bg-purple-100 text-purple-800 border-purple-200',
+      E: 'bg-gray-100 text-gray-800 border-gray-200',
+      S: 'bg-gray-100 text-gray-800 border-gray-200',
+      G: 'bg-gray-100 text-gray-800 border-gray-200',
     }
     return colors[category] || colors.E
   }
@@ -129,7 +129,7 @@ Note: This is a preview. Actual implementation required for real score changes.`
 
   const OpportunityCard = ({ recommendation, isTopOpportunity = false }) => (
     <div className={`bg-white p-6 rounded-lg shadow-md border-l-4 ${
-      isTopOpportunity ? 'border-l-green-500 bg-green-50' : 'border-l-gray-300'
+      isTopOpportunity ? 'border-l-gray-500 bg-gray-50' : 'border-l-gray-300'
     }`}>
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-center space-x-3">
@@ -157,8 +157,8 @@ Note: This is a preview. Actual implementation required for real score changes.`
       
       {/* Why it matters section */}
       {recommendation.why_matters && (
-        <div className="bg-blue-50 p-3 rounded mb-3 border-l-4 border-blue-400">
-          <p className="text-sm text-blue-800">
+        <div className="bg-gray-50 p-3 rounded mb-3 border-l-4 border-gray-400">
+          <p className="text-sm text-gray-800">
             <strong>Why this matters for your business:</strong> {recommendation.why_matters}
           </p>
         </div>
@@ -166,14 +166,14 @@ Note: This is a preview. Actual implementation required for real score changes.`
       
       {/* Impact indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-        <div className="bg-green-50 p-3 rounded border">
+        <div className="bg-gray-50 p-3 rounded border">
           <p className="text-sm text-gray-700">
-            <strong className="text-green-700">ESG Impact:</strong> {recommendation.esg_impact_points || '+2 to +4 ESG points'}
+            <strong className="text-gray-700">ESG Impact:</strong> {recommendation.esg_impact_points || '+2 to +4 ESG points'}
           </p>
         </div>
-        <div className="bg-blue-50 p-3 rounded border">
+        <div className="bg-gray-50 p-3 rounded border">
           <p className="text-sm text-gray-700">
-            <strong className="text-blue-700">Business Benefit:</strong> {recommendation.business_benefit || recommendation.expected_impact}
+            <strong className="text-gray-700">Business Benefit:</strong> {recommendation.business_benefit || recommendation.expected_impact}
           </p>
         </div>
       </div>
@@ -183,19 +183,19 @@ Note: This is a preview. Actual implementation required for real score changes.`
         <button
           onClick={() => handleAddToRoadmap(recommendation.id)}
           disabled={actionLoading[recommendation.id]}
-          className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 text-sm font-medium"
+          className="bg-[#C5D89D] text-gray-800 px-4 py-2 rounded-lg hover:bg-[#B5C88D] disabled:opacity-50 text-sm font-medium transition-colors duration-200"
         >
           {actionLoading[recommendation.id] ? 'Adding...' : 'Add to Execution Plan'}
         </button>
         <button
           onClick={() => handleAskAI(recommendation)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-medium"
+          className="bg-[#C5D89D] text-gray-800 px-4 py-2 rounded-lg hover:bg-[#B5C88D] text-sm font-medium transition-colors duration-200"
         >
           Ask AI How to Implement
         </button>
         <button
           onClick={() => simulateImpact(recommendation)}
-          className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm font-medium"
+          className="bg-[#C5D89D] text-gray-800 px-4 py-2 rounded-lg hover:bg-[#B5C88D] text-sm font-medium transition-colors duration-200"
         >
           Simulate ESG Impact
         </button>
@@ -217,7 +217,7 @@ Note: This is a preview. Actual implementation required for real score changes.`
         <div className="text-center py-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">No Assessment Found</h2>
           <p className="text-gray-600 mb-6">Complete an ESG assessment to discover improvement opportunities.</p>
-          <Link to="/esg-form" className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 font-medium">
+          <Link to="/esg-form" className="bg-[#C5D89D] text-gray-800 px-6 py-3 rounded-lg hover:bg-[#B5C88D] font-medium transition-colors duration-200">
             Start Assessment
           </Link>
         </div>
@@ -261,7 +261,7 @@ Note: This is a preview. Actual implementation required for real score changes.`
         </div>
 
         {!showAll && topOpportunities.length > 0 && (
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border">
+          <div className="bg-gray-50 p-6 rounded-lg border">
             <h2 className="text-xl font-semibold text-gray-900 mb-2">Top 3 Opportunities</h2>
             <p className="text-gray-600 text-sm mb-4">Highest impact, lowest cost, and highest risk reduction opportunities for your business</p>
           </div>
@@ -287,7 +287,7 @@ Note: This is a preview. Actual implementation required for real score changes.`
         <div className="flex justify-center">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 font-medium"
+            className="bg-[#C5D89D] text-gray-800 px-6 py-3 rounded-lg hover:bg-[#B5C88D] font-medium transition-colors duration-200"
           >
             {showAll ? 'Show Top 3 Opportunities' : `View All Opportunities (${allRecommendations.length})`}
           </button>
@@ -299,13 +299,13 @@ Note: This is a preview. Actual implementation required for real score changes.`
           <div className="flex flex-wrap gap-4">
             <Link
               to="/roadmap"
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-medium"
+              className="bg-[#C5D89D] text-gray-800 px-6 py-3 rounded-lg hover:bg-[#B5C88D] font-medium transition-colors duration-200"
             >
               View Execution Plan (WHEN)
             </Link>
             <Link
               to="/chatbot"
-              className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 font-medium"
+              className="bg-[#C5D89D] text-gray-800 px-6 py-3 rounded-lg hover:bg-[#B5C88D] font-medium transition-colors duration-200"
             >
               Get Implementation Help (HOW)
             </Link>

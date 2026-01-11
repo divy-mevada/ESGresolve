@@ -20,7 +20,30 @@ import {
   PolarRadiusAxis,
   Radar,
 } from "recharts";
-import { Users, Zap, Droplets, Fuel, Shield, BarChart3, Leaf, Building2, Factory, Recycle, RotateCcw, Scale, Waves, GraduationCap, Bot, Target, Calendar, AlertTriangle, Zap as Lightning, Globe, TrendingUp, AlertCircle } from "lucide-react";
+import {
+  Users,
+  Zap,
+  Droplets,
+  Fuel,
+  Shield,
+  BarChart3,
+  Leaf,
+  Building2,
+  Factory,
+  Recycle,
+  RotateCcw,
+  Scale,
+  Waves,
+  GraduationCap,
+  Bot,
+  Target,
+  Calendar,
+  AlertTriangle,
+  Zap as Lightning,
+  Globe,
+  TrendingUp,
+  AlertCircle,
+} from "lucide-react";
 
 const COLORS = ["#10b981", "#3b82f6", "#8b5cf6"];
 const CHART_COLORS = [
@@ -115,12 +138,12 @@ export default function DashboardPage() {
 
   const checkAiServiceStatus = async () => {
     // Simulate AI service check without actual endpoint
-    setAiServiceStatus({ 
-      service_operational: true, 
-      active_client: 'deepseek',
-      active_model: 'deepseek-chat'
-    })
-  }
+    setAiServiceStatus({
+      service_operational: true,
+      active_client: "deepseek",
+      active_model: "deepseek-chat",
+    });
+  };
 
   const loadSnapshots = async () => {
     try {
@@ -141,7 +164,9 @@ export default function DashboardPage() {
 
   const loadDashboardInsights = async (snapshotId) => {
     try {
-      const response = await api.get(`/esg-snapshots/${snapshotId}/dashboard_insights/`);
+      const response = await api.get(
+        `/esg-snapshots/${snapshotId}/dashboard_insights/`
+      );
       setDashboardInsights(response.data);
     } catch (error) {
       console.error("Failed to load dashboard insights", error);
@@ -159,16 +184,25 @@ export default function DashboardPage() {
           detailed_insights: {
             environmental: {
               current_performance: "Good progress on environmental initiatives",
-              key_strengths: ["Energy monitoring in place", "Waste management system"]
+              key_strengths: [
+                "Energy monitoring in place",
+                "Waste management system",
+              ],
             },
             social: {
               current_performance: "Strong employee welfare programs",
-              key_strengths: ["Safety training provided", "Health benefits available"]
+              key_strengths: [
+                "Safety training provided",
+                "Health benefits available",
+              ],
             },
             governance: {
               current_performance: "Basic governance structure established",
-              key_strengths: ["Policy framework developing", "Risk awareness growing"]
-            }
+              key_strengths: [
+                "Policy framework developing",
+                "Risk awareness growing",
+              ],
+            },
           },
           actionable_recommendations: [
             {
@@ -177,15 +211,15 @@ export default function DashboardPage() {
               priority: "high",
               cost_estimate: "₹41,500-1,66,000",
               expected_impact: "Reduce energy costs by 15-25%",
-              esg_score_improvement: "+8-12 points"
+              esg_score_improvement: "+8-12 points",
             },
             {
               title: "Enhance Employee Safety Training",
-              category: "S", 
+              category: "S",
               priority: "high",
               cost_estimate: "₹24,900-66,400",
               expected_impact: "Improve workplace safety standards",
-              esg_score_improvement: "+5-8 points"
+              esg_score_improvement: "+5-8 points",
             },
             {
               title: "Develop Governance Policies",
@@ -193,22 +227,22 @@ export default function DashboardPage() {
               priority: "medium",
               cost_estimate: "₹16,600-41,500",
               expected_impact: "Strengthen organizational governance",
-              esg_score_improvement: "+6-10 points"
-            }
+              esg_score_improvement: "+6-10 points",
+            },
           ],
           risk_assessment: {
             high_priority_risks: ["Regulatory compliance gaps"],
             medium_priority_risks: ["Energy cost volatility"],
-            regulatory_compliance_risks: ["Missing ESG policies"]
-          }
-        })
-        setAiLoading(false)
-        alert("🤖 AI analysis completed! Enhanced insights now available.")
-      }, 2000)
+            regulatory_compliance_risks: ["Missing ESG policies"],
+          },
+        });
+        setAiLoading(false);
+        alert("🤖 AI analysis completed! Enhanced insights now available.");
+      }, 2000);
     } catch (error) {
       console.error("AI analysis failed", error);
       alert("AI analysis unavailable. Using standard calculations.");
-      setAiLoading(false)
+      setAiLoading(false);
     }
   };
 
@@ -335,7 +369,7 @@ export default function DashboardPage() {
     wasteGenerated: esgInput.waste_generated_tons || 0,
     wasteRecycled: esgInput.waste_recycled_percentage || 0,
     turnoverRate: esgInput.employee_turnover_rate || 0,
-    boardDiversity: esgInput.board_diversity_percentage || 0
+    boardDiversity: esgInput.board_diversity_percentage || 0,
   };
 
   // Electricity cost per kWh
@@ -371,7 +405,8 @@ export default function DashboardPage() {
           : "bg-red-100 text-red-800"
       }`}
     >
-      <Bot className="w-4 h-4 text-green-800" /> AI {aiServiceStatus?.service_operational ? "Active" : "Offline"}
+      <Bot className="w-4 h-4 text-green-800" /> AI{" "}
+      {aiServiceStatus?.service_operational ? "Active" : "Offline"}
       {aiServiceStatus?.active_client && (
         <span className="ml-1">({aiServiceStatus.active_client})</span>
       )}
@@ -446,7 +481,9 @@ export default function DashboardPage() {
               <div className="bg-white/70 rounded-lg p-4 border-l-4 border-blue-500">
                 <div className="flex items-center mb-2">
                   <Calendar className="w-5 h-5 mr-2 text-blue-600" />
-                  <h3 className="font-semibold text-gray-800">This Month's ESG Focus</h3>
+                  <h3 className="font-semibold text-gray-800">
+                    This Month's ESG Focus
+                  </h3>
                 </div>
                 <p className="text-sm font-medium text-gray-900 mb-1">
                   {dashboardInsights.monthly_focus.action}
@@ -454,13 +491,20 @@ export default function DashboardPage() {
                 <p className="text-xs text-gray-600">
                   {dashboardInsights.monthly_focus.reason}
                 </p>
-                <span className={`inline-block mt-2 px-2 py-1 rounded text-xs font-medium ${
-                  dashboardInsights.monthly_focus.category === 'E' ? 'bg-green-100 text-green-800' :
-                  dashboardInsights.monthly_focus.category === 'S' ? 'bg-blue-100 text-blue-800' :
-                  'bg-purple-100 text-purple-800'
-                }`}>
-                  {dashboardInsights.monthly_focus.category === 'E' ? 'Environmental' :
-                   dashboardInsights.monthly_focus.category === 'S' ? 'Social' : 'Governance'}
+                <span
+                  className={`inline-block mt-2 px-2 py-1 rounded text-xs font-medium ${
+                    dashboardInsights.monthly_focus.category === "E"
+                      ? "bg-green-100 text-green-800"
+                      : dashboardInsights.monthly_focus.category === "S"
+                      ? "bg-blue-100 text-blue-800"
+                      : "bg-purple-100 text-purple-800"
+                  }`}
+                >
+                  {dashboardInsights.monthly_focus.category === "E"
+                    ? "Environmental"
+                    : dashboardInsights.monthly_focus.category === "S"
+                    ? "Social"
+                    : "Governance"}
                 </span>
               </div>
 
@@ -468,7 +512,9 @@ export default function DashboardPage() {
               <div className="bg-white/70 rounded-lg p-4 border-l-4 border-red-500">
                 <div className="flex items-center mb-2">
                   <AlertTriangle className="w-5 h-5 mr-2 text-red-600" />
-                  <h3 className="font-semibold text-gray-800">Biggest ESG Risk</h3>
+                  <h3 className="font-semibold text-gray-800">
+                    Biggest ESG Risk
+                  </h3>
                 </div>
                 <p className="text-sm font-medium text-gray-900 mb-1">
                   {dashboardInsights.biggest_risk.description}
@@ -477,13 +523,20 @@ export default function DashboardPage() {
                   <span className="px-2 py-1 bg-red-100 text-red-800 rounded text-xs font-medium">
                     {dashboardInsights.biggest_risk.impact} Impact
                   </span>
-                  <span className={`px-2 py-1 rounded text-xs font-medium ${
-                    dashboardInsights.biggest_risk.category === 'E' ? 'bg-green-100 text-green-800' :
-                    dashboardInsights.biggest_risk.category === 'S' ? 'bg-blue-100 text-blue-800' :
-                    'bg-purple-100 text-purple-800'
-                  }`}>
-                    {dashboardInsights.biggest_risk.category === 'E' ? 'Environmental' :
-                     dashboardInsights.biggest_risk.category === 'S' ? 'Social' : 'Governance'}
+                  <span
+                    className={`px-2 py-1 rounded text-xs font-medium ${
+                      dashboardInsights.biggest_risk.category === "E"
+                        ? "bg-green-100 text-green-800"
+                        : dashboardInsights.biggest_risk.category === "S"
+                        ? "bg-blue-100 text-blue-800"
+                        : "bg-purple-100 text-purple-800"
+                    }`}
+                  >
+                    {dashboardInsights.biggest_risk.category === "E"
+                      ? "Environmental"
+                      : dashboardInsights.biggest_risk.category === "S"
+                      ? "Social"
+                      : "Governance"}
                   </span>
                 </div>
               </div>
@@ -492,7 +545,9 @@ export default function DashboardPage() {
               <div className="bg-white/70 rounded-lg p-4 border-l-4 border-green-500">
                 <div className="flex items-center mb-2">
                   <Lightning className="w-5 h-5 mr-2 text-green-600" />
-                  <h3 className="font-semibold text-gray-800">Fastest ESG Win</h3>
+                  <h3 className="font-semibold text-gray-800">
+                    Fastest ESG Win
+                  </h3>
                 </div>
                 <p className="text-sm font-medium text-gray-900 mb-1">
                   {dashboardInsights.fastest_win.action}
@@ -778,7 +833,9 @@ export default function DashboardPage() {
             <div className="text-5xl font-black mb-2 text-gray-900">
               {analyticsData.employees.toLocaleString()}
             </div>
-            <div className="text-blue-800 text-sm font-medium">Total Employees</div>
+            <div className="text-blue-800 text-sm font-medium">
+              Total Employees
+            </div>
             {analyticsData.femalePercentage > 0 && (
               <div className="mt-4 bg-blue-800/30 rounded-lg p-2">
                 <div className="flex justify-between items-center">
@@ -802,7 +859,9 @@ export default function DashboardPage() {
             <div className="text-5xl font-black mb-2 text-gray-900">
               {analyticsData.electricityKwh.toLocaleString()}
             </div>
-            <div className="text-amber-800 text-sm font-medium">kWh / Month</div>
+            <div className="text-amber-800 text-sm font-medium">
+              kWh / Month
+            </div>
             {analyticsData.electricityBill > 0 && (
               <div className="mt-4 bg-amber-700/30 rounded-lg p-2 space-y-1">
                 <div className="flex justify-between items-center">
@@ -813,7 +872,9 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-amber-900 font-medium">Rate:</span>
-                  <span className="font-bold text-gray-900">₹{costPerKwh}/kWh</span>
+                  <span className="font-bold text-gray-900">
+                    ₹{costPerKwh}/kWh
+                  </span>
                 </div>
               </div>
             )}
@@ -827,8 +888,12 @@ export default function DashboardPage() {
                 WATER
               </div>
             </div>
-            <div className="text-5xl font-black mb-2 text-gray-900">{waterCubicMeters}</div>
-            <div className="text-cyan-800 text-sm font-medium">Cubic Meters / Month</div>
+            <div className="text-5xl font-black mb-2 text-gray-900">
+              {waterCubicMeters}
+            </div>
+            <div className="text-cyan-800 text-sm font-medium">
+              Cubic Meters / Month
+            </div>
             <div className="mt-4 bg-cyan-800/30 rounded-lg p-2">
               <div className="flex justify-between items-center">
                 <span className="text-cyan-900 font-medium">Source:</span>
@@ -850,7 +915,9 @@ export default function DashboardPage() {
             <div className="text-5xl font-black mb-2 text-gray-900">
               {analyticsData.generatorLiters.toLocaleString()}
             </div>
-            <div className="text-slate-800 text-sm font-medium">Liters / Month</div>
+            <div className="text-slate-800 text-sm font-medium">
+              Liters / Month
+            </div>
             {analyticsData.generatorHours > 0 && (
               <div className="mt-4 bg-slate-800/30 rounded-lg p-2">
                 <div className="flex justify-between items-center">
@@ -900,7 +967,9 @@ export default function DashboardPage() {
             <div className="text-5xl font-black mb-2 text-gray-900">
               {analyticsData.accidents}
             </div>
-            <div className="text-red-800 text-sm font-medium">Accidents (Last Year)</div>
+            <div className="text-red-800 text-sm font-medium">
+              Accidents (Last Year)
+            </div>
             {analyticsData.employees > 0 && (
               <div className="mt-4 bg-red-800/30 rounded-lg p-2">
                 <div className="flex justify-between items-center">
@@ -958,7 +1027,7 @@ export default function DashboardPage() {
                 </div>
               </div>
               <div className="text-4xl font-bold mb-1">
-                ₹{(analyticsData.annualRevenue / 1000000 * 83).toFixed(1)}M
+                ₹{((analyticsData.annualRevenue / 1000000) * 83).toFixed(1)}M
               </div>
               <div className="text-emerald-100 text-sm">Annual Revenue</div>
               {analyticsData.esgBudgetPercent > 0 && (
@@ -975,7 +1044,8 @@ export default function DashboardPage() {
           )}
 
           {/* Scope 1 & 2 Emissions */}
-          {(analyticsData.scope1Emissions > 0 || analyticsData.scope2Emissions > 0) && (
+          {(analyticsData.scope1Emissions > 0 ||
+            analyticsData.scope2Emissions > 0) && (
             <div className="bg-gradient-to-br from-red-500 to-pink-600 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-white cursor-pointer">
               <div className="flex items-center justify-between mb-4">
                 <div className="text-3xl">🏭</div>
@@ -984,17 +1054,23 @@ export default function DashboardPage() {
                 </div>
               </div>
               <div className="text-4xl font-bold mb-1">
-                {(analyticsData.scope1Emissions + analyticsData.scope2Emissions).toFixed(1)}
+                {(
+                  analyticsData.scope1Emissions + analyticsData.scope2Emissions
+                ).toFixed(1)}
               </div>
               <div className="text-red-100 text-sm">Scope 1+2 (tons CO₂)</div>
               <div className="mt-3 text-sm space-y-1">
                 <div className="flex justify-between">
                   <span className="text-red-100">Scope 1:</span>
-                  <span className="font-semibold">{analyticsData.scope1Emissions.toFixed(1)}t</span>
+                  <span className="font-semibold">
+                    {analyticsData.scope1Emissions.toFixed(1)}t
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-red-100">Scope 2:</span>
-                  <span className="font-semibold">{analyticsData.scope2Emissions.toFixed(1)}t</span>
+                  <span className="font-semibold">
+                    {analyticsData.scope2Emissions.toFixed(1)}t
+                  </span>
                 </div>
               </div>
             </div>
@@ -1087,8 +1163,11 @@ export default function DashboardPage() {
                 <div className="flex justify-between">
                   <span className="text-sky-100">Efficiency:</span>
                   <span className="font-semibold">
-                    {analyticsData.waterIntensity < 0.1 ? 'High' : 
-                     analyticsData.waterIntensity < 0.5 ? 'Medium' : 'Low'}
+                    {analyticsData.waterIntensity < 0.1
+                      ? "High"
+                      : analyticsData.waterIntensity < 0.5
+                      ? "Medium"
+                      : "Low"}
                   </span>
                 </div>
               </div>
@@ -1104,7 +1183,9 @@ export default function DashboardPage() {
             <div className="text-5xl font-black mb-2 text-gray-900">
               {latestSnapshot.data_completeness.toFixed(0)}%
             </div>
-            <div className="text-emerald-800 text-sm font-medium">Data Completeness</div>
+            <div className="text-emerald-800 text-sm font-medium">
+              Data Completeness
+            </div>
             <div className="mt-4 bg-emerald-800/30 rounded-lg p-2">
               <div className="bg-emerald-800/40 rounded-full h-3 overflow-hidden">
                 <div
@@ -1125,7 +1206,7 @@ export default function DashboardPage() {
               Comprehensive Report
             </span>
           </h2>
-          
+
           <div className="grid md:grid-cols-3 gap-6">
             {/* Environmental Metrics */}
             <div className="bg-green-50 p-4 rounded-lg border border-green-200">
@@ -1137,25 +1218,41 @@ export default function DashboardPage() {
                 <div className="flex justify-between">
                   <span className="text-gray-600">Carbon Intensity:</span>
                   <span className="font-medium">
-                    {analyticsData.annualRevenue > 0 && (analyticsData.scope1Emissions + analyticsData.scope2Emissions) > 0
-                      ? ((analyticsData.scope1Emissions + analyticsData.scope2Emissions) / (analyticsData.annualRevenue / 1000000 * 83)).toFixed(2)
-                      : 'N/A'} tCO₂/M₹
+                    {analyticsData.annualRevenue > 0 &&
+                    analyticsData.scope1Emissions +
+                      analyticsData.scope2Emissions >
+                      0
+                      ? (
+                          (analyticsData.scope1Emissions +
+                            analyticsData.scope2Emissions) /
+                          ((analyticsData.annualRevenue / 1000000) * 83)
+                        ).toFixed(2)
+                      : "N/A"}{" "}
+                    tCO₂/M₹
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Renewable Energy:</span>
-                  <span className="font-medium">{analyticsData.renewablePercent.toFixed(1)}%</span>
+                  <span className="font-medium">
+                    {analyticsData.renewablePercent.toFixed(1)}%
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Waste Recycling:</span>
-                  <span className="font-medium">{analyticsData.wasteRecycled.toFixed(1)}%</span>
+                  <span className="font-medium">
+                    {analyticsData.wasteRecycled.toFixed(1)}%
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Water Efficiency:</span>
                   <span className="font-medium">
-                    {analyticsData.waterIntensity > 0 ? 
-                      (analyticsData.waterIntensity < 0.1 ? 'Excellent' : 
-                       analyticsData.waterIntensity < 0.5 ? 'Good' : 'Needs Improvement') : 'N/A'}
+                    {analyticsData.waterIntensity > 0
+                      ? analyticsData.waterIntensity < 0.1
+                        ? "Excellent"
+                        : analyticsData.waterIntensity < 0.5
+                        ? "Good"
+                        : "Needs Improvement"
+                      : "N/A"}
                   </span>
                 </div>
               </div>
@@ -1170,21 +1267,33 @@ export default function DashboardPage() {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Gender Diversity:</span>
-                  <span className="font-medium">{analyticsData.femalePercentage.toFixed(1)}%</span>
+                  <span className="font-medium">
+                    {analyticsData.femalePercentage.toFixed(1)}%
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Turnover Rate:</span>
-                  <span className="font-medium">{analyticsData.turnoverRate.toFixed(1)}%</span>
+                  <span className="font-medium">
+                    {analyticsData.turnoverRate.toFixed(1)}%
+                  </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Training Hours/Employee:</span>
-                  <span className="font-medium">{analyticsData.trainingHours.toFixed(1)}h</span>
+                  <span className="text-gray-600">
+                    Training Hours/Employee:
+                  </span>
+                  <span className="font-medium">
+                    {analyticsData.trainingHours.toFixed(1)}h
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Safety Record:</span>
                   <span className="font-medium">
-                    {analyticsData.employees > 0 ? 
-                      ((analyticsData.accidents / analyticsData.employees) * 100).toFixed(2) + '% incident rate' : 'N/A'}
+                    {analyticsData.employees > 0
+                      ? (
+                          (analyticsData.accidents / analyticsData.employees) *
+                          100
+                        ).toFixed(2) + "% incident rate"
+                      : "N/A"}
                   </span>
                 </div>
               </div>
@@ -1199,27 +1308,34 @@ export default function DashboardPage() {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Board Diversity:</span>
-                  <span className="font-medium">{analyticsData.boardDiversity.toFixed(1)}%</span>
+                  <span className="font-medium">
+                    {analyticsData.boardDiversity.toFixed(1)}%
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">ESG Investment:</span>
-                  <span className="font-medium">{analyticsData.esgBudgetPercent.toFixed(1)}% of revenue</span>
+                  <span className="font-medium">
+                    {analyticsData.esgBudgetPercent.toFixed(1)}% of revenue
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Policy Coverage:</span>
                   <span className="font-medium">
-                    {[
-                      esgInput.code_of_conduct,
-                      esgInput.anti_corruption_policy,
-                      esgInput.data_privacy_policy,
-                      esgInput.whistleblower_policy
-                    ].filter(Boolean).length}/4 policies
+                    {
+                      [
+                        esgInput.code_of_conduct,
+                        esgInput.anti_corruption_policy,
+                        esgInput.data_privacy_policy,
+                        esgInput.whistleblower_policy,
+                      ].filter(Boolean).length
+                    }
+                    /4 policies
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Stakeholder Engagement:</span>
                   <span className="font-medium capitalize">
-                    {esgInput.stakeholder_engagement_frequency || 'Not Set'}
+                    {esgInput.stakeholder_engagement_frequency || "Not Set"}
                   </span>
                 </div>
               </div>
@@ -1228,32 +1344,52 @@ export default function DashboardPage() {
 
           {/* ESG Maturity Assessment */}
           <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-            <h4 className="font-semibold text-gray-800 mb-3">ESG Maturity Level</h4>
+            <h4 className="font-semibold text-gray-800 mb-3">
+              ESG Maturity Level
+            </h4>
             <div className="grid md:grid-cols-4 gap-4 text-center">
-              <div className={`p-3 rounded-lg ${
-                latestSnapshot.overall_esg_score < 30 ? 'bg-red-100 border-2 border-red-300' : 'bg-gray-100'
-              }`}>
+              <div
+                className={`p-3 rounded-lg ${
+                  latestSnapshot.overall_esg_score < 30
+                    ? "bg-red-100 border-2 border-red-300"
+                    : "bg-gray-100"
+                }`}
+              >
                 <div className="text-2xl mb-1">🔴</div>
                 <div className="text-xs font-medium">Beginner</div>
                 <div className="text-xs text-gray-600">0-30</div>
               </div>
-              <div className={`p-3 rounded-lg ${
-                latestSnapshot.overall_esg_score >= 30 && latestSnapshot.overall_esg_score < 50 ? 'bg-yellow-100 border-2 border-yellow-300' : 'bg-gray-100'
-              }`}>
+              <div
+                className={`p-3 rounded-lg ${
+                  latestSnapshot.overall_esg_score >= 30 &&
+                  latestSnapshot.overall_esg_score < 50
+                    ? "bg-yellow-100 border-2 border-yellow-300"
+                    : "bg-gray-100"
+                }`}
+              >
                 <div className="text-2xl mb-1">🟡</div>
                 <div className="text-xs font-medium">Developing</div>
                 <div className="text-xs text-gray-600">30-50</div>
               </div>
-              <div className={`p-3 rounded-lg ${
-                latestSnapshot.overall_esg_score >= 50 && latestSnapshot.overall_esg_score < 70 ? 'bg-blue-100 border-2 border-blue-300' : 'bg-gray-100'
-              }`}>
+              <div
+                className={`p-3 rounded-lg ${
+                  latestSnapshot.overall_esg_score >= 50 &&
+                  latestSnapshot.overall_esg_score < 70
+                    ? "bg-blue-100 border-2 border-blue-300"
+                    : "bg-gray-100"
+                }`}
+              >
                 <div className="text-2xl mb-1">🔵</div>
                 <div className="text-xs font-medium">Intermediate</div>
                 <div className="text-xs text-gray-600">50-70</div>
               </div>
-              <div className={`p-3 rounded-lg ${
-                latestSnapshot.overall_esg_score >= 70 ? 'bg-green-100 border-2 border-green-300' : 'bg-gray-100'
-              }`}>
+              <div
+                className={`p-3 rounded-lg ${
+                  latestSnapshot.overall_esg_score >= 70
+                    ? "bg-green-100 border-2 border-green-300"
+                    : "bg-gray-100"
+                }`}
+              >
                 <div className="text-2xl mb-1">🟢</div>
                 <div className="text-xs font-medium">Advanced</div>
                 <div className="text-xs text-gray-600">70+</div>

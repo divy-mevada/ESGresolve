@@ -61,8 +61,8 @@ def google_login(request):
         
         # Exchange code for access token
         token_url = 'https://oauth2.googleapis.com/token'
-        # Get redirect_uri from request or use default
-        redirect_uri = request.data.get('redirect_uri', 'https://es-gresolve-patk6e53m-divy-mevadas-projects.vercel.app/auth/google/callback')
+        # Get redirect_uri from request or use production URL
+        redirect_uri = request.data.get('redirect_uri', 'https://es-gresolve.vercel.app/auth/google/callback')
         token_data = {
             'client_id': settings.GOOGLE_CLIENT_ID,
             'client_secret': settings.GOOGLE_CLIENT_SECRET,

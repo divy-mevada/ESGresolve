@@ -79,7 +79,16 @@ def google_login(request):
         if 'access_token' not in token_json:
             error_msg = token_json.get('error_description', token_json.get('error', 'Failed to get access token'))
             print(f"[DEBUG] Token exchange failed: {error_msg}")
-            return Response({'error': f'Token exchange failed: {error_msg}'}, status=status.HTTP_400_BAD_REQUEST)
+            print(f"[DEBUG] Full token response: {token_json}")
+            print(f"[DEBUG] Redirect URI used: {redirect_uri}")
+            print(f"[DEBUG] Client ID: {settings.GOOGLE_CLIENT_ID[:20]}...")
+            return Response({
+                'error': f'Token exchange failed: {error_msg}',
+                'debug_info': {
+                    'redirect_uri': redirect_uri,
+                    'response': token_json
+                }
+            }, status=status.HTTP_400_BAD_REQUEST)
         
         # Get user info from Google
         user_info_url = f'https://www.googleapis.com/oauth2/v2/userinfo?access_token={token_json["access_token"]}'

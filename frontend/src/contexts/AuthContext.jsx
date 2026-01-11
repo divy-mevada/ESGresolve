@@ -76,7 +76,11 @@ export function AuthProvider({ children }) {
   const googleLogin = async (authCode) => {
     try {
       console.log('[DEBUG] Attempting Google login with auth code')
-      const response = await api.post('/auth/google/', { code: authCode })
+      const redirectUri = `${window.location.origin}/auth/google/callback`
+      const response = await api.post('/auth/google/', { 
+        code: authCode,
+        redirect_uri: redirectUri
+      })
       console.log('[DEBUG] Google login response:', response.data)
       
       const { token, user } = response.data

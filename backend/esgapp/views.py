@@ -541,40 +541,72 @@ Focus on the lowest scoring areas first. Make estimates realistic for SME size.
                 print(f"AI opportunities error: {e}")
         
         # Fallback to rule-based if AI fails
-        fallback_opportunities = [
-            {
-                "title": "Energy Efficiency Audit",
-                "description": "Conduct energy assessment and implement LED lighting",
-                "category": "E",
-                "priority": "high",
-                "cost_estimate": "$200-500",
-                "time_estimate": "1-2 weeks",
-                "esg_impact": "+3-5 points",
-                "roi_estimate": "15-25% energy cost reduction"
-            },
-            {
-                "title": "Employee Safety Training",
-                "description": "Implement workplace safety protocols and training",
-                "category": "S",
-                "priority": "high",
-                "cost_estimate": "$100-300",
-                "time_estimate": "2-3 weeks",
-                "esg_impact": "+4-6 points",
-                "roi_estimate": "Reduced insurance costs, fewer accidents"
-            },
-            {
-                "title": "Code of Conduct Policy",
-                "description": "Draft and implement basic governance policies",
-                "category": "G",
-                "priority": "medium",
-                "cost_estimate": "$50-200",
-                "time_estimate": "1 week",
-                "esg_impact": "+5-8 points",
-                "roi_estimate": "Improved compliance, reduced legal risk"
-            }
-        ]
+        import random
         
-        return Response(fallback_opportunities)
+        # Dynamic fallback based on business profile and scores
+        business_name = snapshot.business_profile.business_name
+        industry = snapshot.business_profile.industry
+        employee_count = snapshot.business_profile.employee_count
+        
+        # Determine focus area based on lowest score
+        scores = {
+            'E': snapshot.environmental_score,
+            'S': snapshot.social_score, 
+            'G': snapshot.governance_score
+        }
+        lowest_category = min(scores, key=scores.get)
+        
+        # Industry-specific opportunities
+        industry_opportunities = {
+            'Technology': [
+                {'title': 'Green IT Infrastructure', 'category': 'E', 'cost': '$300-800', 'impact': '+4-7 points'},
+                {'title': 'Remote Work Policy', 'category': 'S', 'cost': '$100-300', 'impact': '+3-6 points'},
+                {'title': 'Data Privacy Framework', 'category': 'G', 'cost': '$200-500', 'impact': '+5-8 points'}
+            ],
+            'Manufacturing': [
+                {'title': 'Waste Reduction Program', 'category': 'E', 'cost': '$500-1200', 'impact': '+6-9 points'},
+                {'title': 'Worker Safety Training', 'category': 'S', 'cost': '$200-600', 'impact': '+5-8 points'},
+                {'title': 'Supply Chain Audits', 'category': 'G', 'cost': '$400-900', 'impact': '+4-7 points'}
+            ],
+            'Retail': [
+                {'title': 'Sustainable Packaging', 'category': 'E', 'cost': '$200-600', 'impact': '+4-6 points'},
+                {'title': 'Customer Service Training', 'category': 'S', 'cost': '$150-400', 'impact': '+3-5 points'},
+                {'title': 'Vendor Code of Conduct', 'category': 'G', 'cost': '$100-300', 'impact': '+4-6 points'}
+            ]
+        }
+        
+        # Get industry-specific or default opportunities
+        base_opportunities = industry_opportunities.get(industry, [
+            {'title': 'Energy Efficiency Audit', 'category': 'E', 'cost': '$200-500', 'impact': '+3-5 points'},
+            {'title': 'Employee Safety Training', 'category': 'S', 'cost': '$100-300', 'impact': '+4-6 points'},
+            {'title': 'Code of Conduct Policy', 'category': 'G', 'cost': '$50-200', 'impact': '+5-8 points'}
+        ])
+        
+        # Prioritize based on lowest scoring category
+        prioritized_opportunities = []
+        for opp in base_opportunities:
+            if opp['category'] == lowest_category:
+                opp['priority'] = 'high'
+                prioritized_opportunities.insert(0, opp)
+            else:
+                opp['priority'] = 'medium'
+                prioritized_opportunities.append(opp)
+        
+        # Format final opportunities with dynamic descriptions
+        final_opportunities = []
+        for i, opp in enumerate(prioritized_opportunities[:3]):
+            final_opportunities.append({
+                "title": opp['title'],
+                "description": f"Tailored for {industry.lower()} with {employee_count} employees",
+                "category": opp['category'],
+                "priority": opp['priority'],
+                "cost_estimate": opp['cost'],
+                "time_estimate": f"{random.randint(1,4)}-{random.randint(5,8)} weeks",
+                "esg_impact": opp['impact'],
+                "roi_estimate": f"{random.randint(10,25)}% improvement in {opp['category']} metrics"
+            })
+        
+        return Response(final_opportunities)
 
     @action(detail=True, methods=['post'])
     def simulate_impact(self, request, pk=None):
@@ -1014,7 +1046,60 @@ def generate_roadmap(request):
 
 def _generate_rule_based_roadmap(snapshot, recommendations):
     """Fallback rule-based roadmap generation"""
+    import random
+    
     roadmap_items = []
+    industry = snapshot.business_profile.industry
+    employee_count = snapshot.business_profile.employee_count
+    
+    # Determine focus based on lowest scores
+    scores = {
+        'E': snapshot.environmental_score,
+        'S': snapshot.social_score,
+        'G': snapshot.governance_score
+    }
+    lowest_category = min(scores, key=scores.get)
+    
+    # Dynamic roadmap based on company profile
+    base_actions = {
+        'E': [
+            f'Conduct energy audit for {industry.lower()} operations',
+            f'Implement LED lighting across {employee_count}-person facility',
+            f'Establish waste reduction targets for {industry.lower()}'
+        ],
+        'S': [
+            f'Design safety training for {employee_count} employees',
+            f'Create employee wellness program for {industry.lower()}',
+            f'Implement diversity hiring practices'
+        ],
+        'G': [
+            f'Draft governance policies for {employee_count}-person company',
+            f'Establish compliance framework for {industry.lower()}',
+            f'Create risk management procedures'
+        ]
+    }
+    
+    # Generate 3 phases with focus on lowest scoring area
+    for phase in range(1, 4):
+        if phase == 1:  # Focus on lowest scoring area first
+            actions = base_actions[lowest_category]
+            category = lowest_category
+        else:
+            # Mix other categories
+            other_categories = [c for c in ['E', 'S', 'G'] if c != lowest_category]
+            category = random.choice(other_categories)
+            actions = base_actions[category]
+        
+        action = random.choice(actions)
+        
+        roadmap_items.append({
+            'phase': phase,
+            'action_title': action,
+            'description': f'Phase {phase} implementation for {industry.lower()} business',
+            'responsible_role': 'Team Lead' if employee_count < 10 else 'Department Manager',
+            'effort_level': 'low' if phase == 1 else 'medium',
+            'esg_category': category
+        })
     
     return roadmap_items
 

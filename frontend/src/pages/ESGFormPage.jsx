@@ -695,7 +695,7 @@ export default function ESGFormPage() {
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Employee Training Hours (per employee/year)
+                    Employee Training Hours (per employee/month)
                   </label>
                   <input
                     type="number"

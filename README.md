@@ -1,3 +1,5 @@
+## Google signin might not work in some browser, so use normal login
+
 # ESG Resolve: AI-Powered ESG Analytics for SMEs
 
 ## 🌍 The Problem

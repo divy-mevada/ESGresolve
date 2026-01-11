@@ -21,7 +21,6 @@ import {
   Radar,
 } from "recharts";
 import { Users, Zap, Droplets, Fuel, Shield, BarChart3, Leaf, Building2, Factory, Recycle, RotateCcw, Scale, Waves, GraduationCap, Bot, Target, Calendar, AlertTriangle, Zap as Lightning, Globe, TrendingUp, AlertCircle } from "lucide-react";
-import Popup from '../components/Popup';
 
 const COLORS = ["#10b981", "#3b82f6", "#8b5cf6"];
 const CHART_COLORS = [
@@ -108,7 +107,6 @@ export default function DashboardPage() {
   const [comprehensiveAnalysis, setComprehensiveAnalysis] = useState(null);
   const [aiServiceStatus, setAiServiceStatus] = useState(null);
   const [dashboardInsights, setDashboardInsights] = useState(null);
-  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     loadSnapshots();
@@ -205,7 +203,7 @@ export default function DashboardPage() {
           }
         })
         setAiLoading(false)
-        setShowPopup(true)
+        alert("🤖 AI analysis completed! Enhanced insights now available.")
       }, 2000)
     } catch (error) {
       console.error("AI analysis failed", error);
@@ -1489,14 +1487,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-      
-      <Popup
-        isOpen={showPopup}
-        onClose={() => setShowPopup(false)}
-        title="AI Analysis Complete"
-        message="Enhanced insights are now available! Check out the new recommendations and risk assessments."
-        type="success"
-      />
     </Layout>
   );
 }

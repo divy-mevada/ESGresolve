@@ -1,5 +1,8 @@
 // Google sign-up might not work in some browser, so use normal login
 
+deployed on  - https://esg-resolve-067.vercel.app/
+video  uploaded in repo
+
 # ESG Resolve: AI-Powered ESG Analytics for SMEs
 
 ## 🌍 The Problem

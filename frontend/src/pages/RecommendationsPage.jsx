@@ -213,20 +213,20 @@ export default function RecommendationsPage() {
         <button
           onClick={() => handleAddToRoadmap(recommendation.id, recommendation)}
           disabled={actionLoading[recommendation.id || Math.random()]}
-          className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 text-sm font-medium"
+          className="bg-[#C5D89D] text-gray-800 px-4 py-2 rounded-lg hover:bg-[#B5C88D] disabled:opacity-50 text-sm font-medium transition-colors duration-200"
         >
           {actionLoading[recommendation.id || Math.random()] ? 'Adding...' : 'Add to Execution Plan'}
         </button>
         <button
           onClick={() => handleAskAI(recommendation)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-medium"
+          className="bg-[#C5D89D] text-gray-800 px-4 py-2 rounded-lg hover:bg-[#B5C88D] text-sm font-medium transition-colors duration-200"
         >
           Ask AI How to Implement
         </button>
         <button
           onClick={() => simulateImpact(recommendation)}
           disabled={actionLoading[`sim_${recommendation.id || Math.random()}`]}
-          className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm font-medium disabled:opacity-50"
+          className="bg-[#C5D89D] text-gray-800 px-4 py-2 rounded-lg hover:bg-[#B5C88D] text-sm font-medium disabled:opacity-50 transition-colors duration-200"
         >
           {actionLoading[`sim_${recommendation.id || Math.random()}`] ? 'Simulating...' : 'Simulate ESG Impact'}
         </button>
@@ -248,7 +248,7 @@ export default function RecommendationsPage() {
         <div className="text-center py-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">No Assessment Found</h2>
           <p className="text-gray-600 mb-6">Complete an ESG assessment to discover improvement opportunities.</p>
-          <Link to="/esg-form" className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 font-medium">
+          <Link to="/esg-form" className="bg-[#C5D89D] text-gray-800 px-6 py-3 rounded-lg hover:bg-[#B5C88D] font-medium transition-colors duration-200">
             Start Assessment
           </Link>
         </div>
@@ -318,7 +318,7 @@ export default function RecommendationsPage() {
         <div className="flex justify-center">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 font-medium flex items-center space-x-2"
+            className="bg-[#C5D89D] text-gray-800 px-6 py-3 rounded-lg hover:bg-[#B5C88D] font-medium flex items-center space-x-2 transition-colors duration-200"
           >
             <span>{showAll ? 'Show Top 3 Opportunities' : `View All Opportunities (${allRecommendations.length})`}</span>
             <span className="text-lg">{showAll ? '↑' : '↓'}</span>
@@ -331,13 +331,13 @@ export default function RecommendationsPage() {
           <div className="flex flex-wrap gap-4">
             <Link
               to="/roadmap"
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-medium"
+              className="bg-[#C5D89D] text-gray-800 px-6 py-3 rounded-lg hover:bg-[#B5C88D] font-medium transition-colors duration-200"
             >
               View Execution Plan (WHEN)
             </Link>
             <Link
               to="/chatbot"
-              className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 font-medium"
+              className="bg-[#C5D89D] text-gray-800 px-6 py-3 rounded-lg hover:bg-[#B5C88D] font-medium transition-colors duration-200"
             >
               Get Implementation Help (HOW)
             </Link>

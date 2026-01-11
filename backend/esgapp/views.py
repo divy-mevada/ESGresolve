@@ -61,7 +61,7 @@ def google_login(request):
         
         # Exchange code for access token
         token_url = 'https://oauth2.googleapis.com/token'
-        redirect_uri = 'http://localhost:3000/auth/google/callback'  # Fixed redirect URI
+        redirect_uri = 'https://es-gresolve.vercel.app/auth/google/callback'  # Updated for production
         token_data = {
             'client_id': settings.GOOGLE_CLIENT_ID,
             'client_secret': settings.GOOGLE_CLIENT_SECRET,

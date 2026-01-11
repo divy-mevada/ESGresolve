@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import GoogleLoginButton from '../components/GoogleLoginButton'
 
 export default function SignupPage() {
   const [username, setUsername] = useState('')
@@ -25,6 +26,14 @@ export default function SignupPage() {
     setLoading(false)
   }
 
+  const handleGoogleSuccess = () => {
+    navigate('/business-setup')
+  }
+
+  const handleGoogleError = (error) => {
+    setError(error)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
@@ -36,6 +45,19 @@ export default function SignupPage() {
             {error}
           </div>
         )}
+
+        <GoogleLoginButton onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
+        
+        <div className="mt-6 mb-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">Or continue with email</span>
+            </div>
+          </div>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>

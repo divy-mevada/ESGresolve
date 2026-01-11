@@ -20,6 +20,8 @@ import {
   PolarRadiusAxis,
   Radar,
 } from "recharts";
+import { Users, Zap, Droplets, Fuel, Shield, BarChart3, Leaf, Building2, Factory, Recycle, RotateCcw, Scale, Waves, GraduationCap, Bot, Target, Calendar, AlertTriangle, Zap as Lightning, Globe, TrendingUp, AlertCircle } from "lucide-react";
+import Popup from '../components/Popup';
 
 const COLORS = ["#10b981", "#3b82f6", "#8b5cf6"];
 const CHART_COLORS = [
@@ -106,6 +108,7 @@ export default function DashboardPage() {
   const [comprehensiveAnalysis, setComprehensiveAnalysis] = useState(null);
   const [aiServiceStatus, setAiServiceStatus] = useState(null);
   const [dashboardInsights, setDashboardInsights] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     loadSnapshots();
@@ -174,7 +177,7 @@ export default function DashboardPage() {
               title: "Implement Energy Efficiency Program",
               category: "E",
               priority: "high",
-              cost_estimate: "$500-2000",
+              cost_estimate: "₹41,500-1,66,000",
               expected_impact: "Reduce energy costs by 15-25%",
               esg_score_improvement: "+8-12 points"
             },
@@ -182,7 +185,7 @@ export default function DashboardPage() {
               title: "Enhance Employee Safety Training",
               category: "S", 
               priority: "high",
-              cost_estimate: "$300-800",
+              cost_estimate: "₹24,900-66,400",
               expected_impact: "Improve workplace safety standards",
               esg_score_improvement: "+5-8 points"
             },
@@ -190,7 +193,7 @@ export default function DashboardPage() {
               title: "Develop Governance Policies",
               category: "G",
               priority: "medium",
-              cost_estimate: "$200-500",
+              cost_estimate: "₹16,600-41,500",
               expected_impact: "Strengthen organizational governance",
               esg_score_improvement: "+6-10 points"
             }
@@ -202,7 +205,7 @@ export default function DashboardPage() {
           }
         })
         setAiLoading(false)
-        alert("🤖 AI analysis completed! Enhanced insights now available.")
+        setShowPopup(true)
       }, 2000)
     } catch (error) {
       console.error("AI analysis failed", error);
@@ -370,7 +373,7 @@ export default function DashboardPage() {
           : "bg-red-100 text-red-800"
       }`}
     >
-      🤖 AI {aiServiceStatus?.service_operational ? "Active" : "Offline"}
+      <Bot className="w-4 h-4 text-green-800" /> AI {aiServiceStatus?.service_operational ? "Active" : "Offline"}
       {aiServiceStatus?.active_client && (
         <span className="ml-1">({aiServiceStatus.active_client})</span>
       )}
@@ -379,8 +382,8 @@ export default function DashboardPage() {
 
   return (
     <Layout>
-      <div className="space-y-6">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="space-y-6 min-h-screen p-6">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-lg">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">
               Ultimate ESG Dashboard
@@ -399,7 +402,7 @@ export default function DashboardPage() {
               <button
                 onClick={generateAIAnalysis}
                 disabled={aiLoading}
-                className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50 shadow-lg transition-all"
+                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 shadow-lg transition-all"
               >
                 {aiLoading ? (
                   <span className="flex items-center">
@@ -407,7 +410,10 @@ export default function DashboardPage() {
                     Analyzing...
                   </span>
                 ) : (
-                  "🤖 Generate AI Analysis"
+                  <span className="flex items-center">
+                    <Bot className="w-4 h-4 mr-2" />
+                    Generate AI Analysis
+                  </span>
                 )}
               </button>
             )}
@@ -421,7 +427,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Disclaimer */}
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+        <div className="bg-white/80 border-l-4 border-yellow-400 p-4 rounded backdrop-blur-sm">
           <p className="text-sm text-gray-700">
             <strong>Disclaimer:</strong> This assessment is indicative and does
             not constitute a certified ESG rating.
@@ -434,13 +440,14 @@ export default function DashboardPage() {
         {dashboardInsights && (
           <div className="bg-gradient-to-r from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-xl p-6 shadow-lg">
             <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-              🎯 What Should I Focus On Right Now?
+              <Target className="w-5 h-5 mr-2 text-indigo-600" />
+              What Should I Focus On Right Now?
             </h2>
             <div className="grid md:grid-cols-3 gap-4">
               {/* This Month's Focus */}
               <div className="bg-white/70 rounded-lg p-4 border-l-4 border-blue-500">
                 <div className="flex items-center mb-2">
-                  <span className="text-2xl mr-2">📅</span>
+                  <Calendar className="w-5 h-5 mr-2 text-blue-600" />
                   <h3 className="font-semibold text-gray-800">This Month's ESG Focus</h3>
                 </div>
                 <p className="text-sm font-medium text-gray-900 mb-1">
@@ -462,7 +469,7 @@ export default function DashboardPage() {
               {/* Biggest Risk */}
               <div className="bg-white/70 rounded-lg p-4 border-l-4 border-red-500">
                 <div className="flex items-center mb-2">
-                  <span className="text-2xl mr-2">⚠️</span>
+                  <AlertTriangle className="w-5 h-5 mr-2 text-red-600" />
                   <h3 className="font-semibold text-gray-800">Biggest ESG Risk</h3>
                 </div>
                 <p className="text-sm font-medium text-gray-900 mb-1">
@@ -486,7 +493,7 @@ export default function DashboardPage() {
               {/* Fastest Win */}
               <div className="bg-white/70 rounded-lg p-4 border-l-4 border-green-500">
                 <div className="flex items-center mb-2">
-                  <span className="text-2xl mr-2">⚡</span>
+                  <Lightning className="w-5 h-5 mr-2 text-green-600" />
                   <h3 className="font-semibold text-gray-800">Fastest ESG Win</h3>
                 </div>
                 <p className="text-sm font-medium text-gray-900 mb-1">
@@ -508,7 +515,7 @@ export default function DashboardPage() {
           <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 rounded-xl p-6 shadow-lg">
             <div className="flex items-center mb-4">
               <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white text-2xl mr-4">
-                🤖
+                <Bot className="w-6 h-6" />
               </div>
               <div>
                 <h2 className="text-xl font-bold text-gray-900">
@@ -578,7 +585,7 @@ export default function DashboardPage() {
                   carbonFootprint.status
                 )} flex items-center justify-center text-2xl`}
               >
-                🌍
+                <Globe className="w-6 h-6" />
               </div>
               <div>
                 <h2 className="text-xl font-bold text-gray-900">
@@ -760,25 +767,25 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Analytics Cards - Colorful */}
+        {/* Analytics Cards - Enhanced Visibility */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Employee Analytics */}
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-white cursor-pointer">
+          <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-white cursor-pointer border border-blue-400">
             <div className="flex items-center justify-between mb-4">
-              <div className="text-3xl">👥</div>
-              <div className="bg-white/20 rounded-full px-3 py-1 text-xs font-semibold">
+              <Users className="w-10 h-10 text-gray-800" />
+              <div className="bg-blue-800/50 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-blue-100">
                 EMPLOYEES
               </div>
             </div>
-            <div className="text-4xl font-bold mb-1">
+            <div className="text-5xl font-black mb-2 text-gray-900">
               {analyticsData.employees.toLocaleString()}
             </div>
-            <div className="text-blue-100 text-sm">Total Employees</div>
+            <div className="text-blue-800 text-sm font-medium">Total Employees</div>
             {analyticsData.femalePercentage > 0 && (
-              <div className="mt-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-blue-100">Female:</span>
-                  <span className="font-semibold">
+              <div className="mt-4 bg-blue-800/30 rounded-lg p-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-blue-900 font-medium">Female:</span>
+                  <span className="font-bold text-lg text-gray-900">
                     {analyticsData.femalePercentage.toFixed(1)}%
                   </span>
                 </div>
@@ -787,70 +794,70 @@ export default function DashboardPage() {
           </div>
 
           {/* Electricity Analytics */}
-          <div className="bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-white cursor-pointer">
+          <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-white cursor-pointer border border-amber-400">
             <div className="flex items-center justify-between mb-4">
-              <div className="text-3xl">⚡</div>
-              <div className="bg-white/20 rounded-full px-3 py-1 text-xs font-semibold">
+              <Zap className="w-10 h-10 text-gray-800" />
+              <div className="bg-amber-700/50 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-amber-100">
                 ENERGY
               </div>
             </div>
-            <div className="text-4xl font-bold mb-1">
+            <div className="text-5xl font-black mb-2 text-gray-900">
               {analyticsData.electricityKwh.toLocaleString()}
             </div>
-            <div className="text-yellow-100 text-sm">kWh / Month</div>
+            <div className="text-amber-800 text-sm font-medium">kWh / Month</div>
             {analyticsData.electricityBill > 0 && (
-              <div className="mt-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-yellow-100">Cost:</span>
-                  <span className="font-semibold">
-                    ${analyticsData.electricityBill.toFixed(0)}
+              <div className="mt-4 bg-amber-700/30 rounded-lg p-2 space-y-1">
+                <div className="flex justify-between items-center">
+                  <span className="text-amber-900 font-medium">Cost:</span>
+                  <span className="font-bold text-lg text-gray-900">
+                    ₹{analyticsData.electricityBill.toFixed(0)}
                   </span>
                 </div>
-                <div className="flex justify-between mt-1">
-                  <span className="text-yellow-100">Rate:</span>
-                  <span className="font-semibold">${costPerKwh}/kWh</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-amber-900 font-medium">Rate:</span>
+                  <span className="font-bold text-gray-900">₹{costPerKwh}/kWh</span>
                 </div>
               </div>
             )}
           </div>
 
           {/* Water Analytics */}
-          <div className="bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-white cursor-pointer">
+          <div className="bg-gradient-to-br from-cyan-600 to-blue-600 rounded-xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-white cursor-pointer border border-cyan-400">
             <div className="flex items-center justify-between mb-4">
-              <div className="text-3xl">💧</div>
-              <div className="bg-white/20 rounded-full px-3 py-1 text-xs font-semibold">
+              <Droplets className="w-10 h-10 text-gray-800" />
+              <div className="bg-cyan-800/50 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-cyan-100">
                 WATER
               </div>
             </div>
-            <div className="text-4xl font-bold mb-1">{waterCubicMeters}</div>
-            <div className="text-cyan-100 text-sm">Cubic Meters / Month</div>
-            <div className="mt-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-cyan-100">Source:</span>
-                <span className="font-semibold capitalize">
-                  {esgInput.water_source || "N/A"}
+            <div className="text-5xl font-black mb-2 text-gray-900">{waterCubicMeters}</div>
+            <div className="text-cyan-800 text-sm font-medium">Cubic Meters / Month</div>
+            <div className="mt-4 bg-cyan-800/30 rounded-lg p-2">
+              <div className="flex justify-between items-center">
+                <span className="text-cyan-900 font-medium">Source:</span>
+                <span className="font-bold capitalize text-gray-900">
+                  {esgInput.water_source || "municipal"}
                 </span>
               </div>
             </div>
           </div>
 
           {/* Generator Analytics */}
-          <div className="bg-gradient-to-br from-gray-600 to-gray-700 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-white cursor-pointer">
+          <div className="bg-gradient-to-br from-slate-600 to-slate-700 rounded-xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-white cursor-pointer border border-slate-400">
             <div className="flex items-center justify-between mb-4">
-              <div className="text-3xl">⛽</div>
-              <div className="bg-white/20 rounded-full px-3 py-1 text-xs font-semibold">
+              <Fuel className="w-10 h-10 text-gray-800" />
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-slate-100">
                 GENERATOR
               </div>
             </div>
-            <div className="text-4xl font-bold mb-1">
+            <div className="text-5xl font-black mb-2 text-gray-900">
               {analyticsData.generatorLiters.toLocaleString()}
             </div>
-            <div className="text-gray-200 text-sm">Liters / Month</div>
+            <div className="text-slate-800 text-sm font-medium">Liters / Month</div>
             {analyticsData.generatorHours > 0 && (
-              <div className="mt-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-200">Hours:</span>
-                  <span className="font-semibold">
+              <div className="mt-4 bg-slate-800/30 rounded-lg p-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-900 font-medium">Hours:</span>
+                  <span className="font-bold text-lg text-gray-900">
                     {analyticsData.generatorHours.toFixed(0)}h
                   </span>
                 </div>
@@ -885,22 +892,22 @@ export default function DashboardPage() {
           )}
 
           {/* Workplace Safety */}
-          <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-white cursor-pointer">
+          <div className="bg-gradient-to-br from-red-600 to-pink-600 rounded-xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-white cursor-pointer border border-red-400">
             <div className="flex items-center justify-between mb-4">
-              <div className="text-3xl">🛡️</div>
-              <div className="bg-white/20 rounded-full px-3 py-1 text-xs font-semibold">
+              <Shield className="w-10 h-10 text-gray-800" />
+              <div className="bg-red-800/50 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-red-100">
                 SAFETY
               </div>
             </div>
-            <div className="text-4xl font-bold mb-1">
+            <div className="text-5xl font-black mb-2 text-gray-900">
               {analyticsData.accidents}
             </div>
-            <div className="text-purple-100 text-sm">Accidents (Last Year)</div>
+            <div className="text-red-800 text-sm font-medium">Accidents (Last Year)</div>
             {analyticsData.employees > 0 && (
-              <div className="mt-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-purple-100">Rate:</span>
-                  <span className="font-semibold">
+              <div className="mt-4 bg-red-800/30 rounded-lg p-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-red-900 font-medium">Rate:</span>
+                  <span className="font-bold text-lg text-gray-900">
                     {(
                       (analyticsData.accidents / analyticsData.employees) *
                       100
@@ -914,24 +921,24 @@ export default function DashboardPage() {
 
           {/* Training */}
           {analyticsData.trainingHours > 0 && (
-            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-white cursor-pointer">
+            <div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-white cursor-pointer border border-indigo-400">
               <div className="flex items-center justify-between mb-4">
-                <div className="text-3xl">📚</div>
-                <div className="bg-white/20 rounded-full px-3 py-1 text-xs font-semibold">
+                <GraduationCap className="w-10 h-10 text-gray-800" />
+                <div className="bg-indigo-800/50 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-indigo-100">
                   TRAINING
                 </div>
               </div>
-              <div className="text-4xl font-bold mb-1">
+              <div className="text-5xl font-black mb-2 text-gray-900">
                 {analyticsData.trainingHours.toFixed(0)}
               </div>
-              <div className="text-indigo-100 text-sm">
+              <div className="text-indigo-800 text-sm font-medium">
                 Hours / Employee / Year
               </div>
               {analyticsData.employees > 0 && (
-                <div className="mt-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-indigo-100">Total:</span>
-                    <span className="font-semibold">
+                <div className="mt-4 bg-indigo-800/30 rounded-lg p-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-indigo-900 font-medium">Total:</span>
+                    <span className="font-bold text-lg text-gray-900">
                       {(
                         analyticsData.trainingHours * analyticsData.employees
                       ).toFixed(0)}
@@ -953,7 +960,7 @@ export default function DashboardPage() {
                 </div>
               </div>
               <div className="text-4xl font-bold mb-1">
-                ${(analyticsData.annualRevenue / 1000000).toFixed(1)}M
+                ₹{(analyticsData.annualRevenue / 1000000 * 83).toFixed(1)}M
               </div>
               <div className="text-emerald-100 text-sm">Annual Revenue</div>
               {analyticsData.esgBudgetPercent > 0 && (
@@ -1077,7 +1084,7 @@ export default function DashboardPage() {
               <div className="text-4xl font-bold mb-1">
                 {analyticsData.waterIntensity.toFixed(2)}
               </div>
-              <div className="text-sky-100 text-sm">L per USD Revenue</div>
+              <div className="text-sky-100 text-sm">L per INR Revenue</div>
               <div className="mt-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-sky-100">Efficiency:</span>
@@ -1089,22 +1096,24 @@ export default function DashboardPage() {
               </div>
             </div>
           )}
-          <div className="bg-gradient-to-br from-teal-500 to-green-600 rounded-xl p-6 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-white cursor-pointer">
+          <div className="bg-gradient-to-br from-emerald-600 to-green-700 rounded-xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-white cursor-pointer border border-emerald-400">
             <div className="flex items-center justify-between mb-4">
-              <div className="text-3xl">📊</div>
-              <div className="bg-white/20 rounded-full px-3 py-1 text-xs font-semibold">
+              <BarChart3 className="w-10 h-10 text-gray-800" />
+              <div className="bg-emerald-800/50 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-bold text-emerald-100">
                 DATA
               </div>
             </div>
-            <div className="text-4xl font-bold mb-1">
+            <div className="text-5xl font-black mb-2 text-gray-900">
               {latestSnapshot.data_completeness.toFixed(0)}%
             </div>
-            <div className="text-teal-100 text-sm">Data Completeness</div>
-            <div className="mt-3 bg-white/20 rounded-full h-2">
-              <div
-                className="bg-white h-2 rounded-full transition-all duration-500"
-                style={{ width: `${latestSnapshot.data_completeness}%` }}
-              ></div>
+            <div className="text-emerald-800 text-sm font-medium">Data Completeness</div>
+            <div className="mt-4 bg-emerald-800/30 rounded-lg p-2">
+              <div className="bg-emerald-800/40 rounded-full h-3 overflow-hidden">
+                <div
+                  className="bg-emerald-200 h-3 rounded-full transition-all duration-1000 shadow-sm"
+                  style={{ width: `${latestSnapshot.data_completeness}%` }}
+                ></div>
+              </div>
             </div>
           </div>
         </div>
@@ -1112,7 +1121,8 @@ export default function DashboardPage() {
         {/* Comprehensive ESG Metrics Summary */}
         <div className="bg-white rounded-xl p-6 shadow-lg">
           <h2 className="text-xl font-semibold mb-4 text-gray-800 flex items-center">
-            📈 ESG Performance Metrics
+            <TrendingUp className="w-5 h-5 mr-2 text-blue-600" />
+            ESG Performance Metrics
             <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
               Comprehensive Report
             </span>
@@ -1122,15 +1132,16 @@ export default function DashboardPage() {
             {/* Environmental Metrics */}
             <div className="bg-green-50 p-4 rounded-lg border border-green-200">
               <h3 className="font-semibold text-green-800 mb-3 flex items-center">
-                🌱 Environmental
+                <Leaf className="w-4 h-4 mr-1 text-green-600" />
+                Environmental
               </h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Carbon Intensity:</span>
                   <span className="font-medium">
                     {analyticsData.annualRevenue > 0 && (analyticsData.scope1Emissions + analyticsData.scope2Emissions) > 0
-                      ? ((analyticsData.scope1Emissions + analyticsData.scope2Emissions) / (analyticsData.annualRevenue / 1000000)).toFixed(2)
-                      : 'N/A'} tCO₂/M$
+                      ? ((analyticsData.scope1Emissions + analyticsData.scope2Emissions) / (analyticsData.annualRevenue / 1000000 * 83)).toFixed(2)
+                      : 'N/A'} tCO₂/M₹
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -1155,7 +1166,8 @@ export default function DashboardPage() {
             {/* Social Metrics */}
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
               <h3 className="font-semibold text-blue-800 mb-3 flex items-center">
-                👥 Social
+                <Users className="w-4 h-4 mr-1 text-blue-600" />
+                Social
               </h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
@@ -1183,7 +1195,8 @@ export default function DashboardPage() {
             {/* Governance Metrics */}
             <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
               <h3 className="font-semibold text-purple-800 mb-3 flex items-center">
-                🏢 Governance
+                <Building2 className="w-4 h-4 mr-1 text-purple-600" />
+                Governance
               </h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
@@ -1253,7 +1266,8 @@ export default function DashboardPage() {
         {recommendations.length > 0 && (
           <div className="bg-white rounded-xl p-6 shadow-lg">
             <h2 className="text-xl font-semibold mb-4 text-gray-800 flex items-center">
-              🎯 AI-Generated Recommendations
+              <Target className="w-5 h-5 mr-2 text-purple-600" />
+              AI-Generated Recommendations
               <span className="ml-2 px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
                 Smart Insights
               </span>
@@ -1262,7 +1276,13 @@ export default function DashboardPage() {
               {recommendations.slice(0, 6).map((rec, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-to-br from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-200"
+                  className={`p-4 rounded-lg border ${
+                    rec.category === "E"
+                      ? "bg-gradient-to-br from-green-50 to-green-100 border-green-200"
+                      : rec.category === "S"
+                      ? "bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200"
+                      : "bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200"
+                  }`}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span
@@ -1408,7 +1428,8 @@ export default function DashboardPage() {
         {comprehensiveAnalysis?.risk_assessment && (
           <div className="bg-white rounded-xl p-6 shadow-lg">
             <h2 className="text-xl font-semibold mb-4 text-gray-800 flex items-center">
-              ⚠️ AI Risk Assessment
+              <AlertCircle className="w-5 h-5 mr-2 text-red-600" />
+              AI Risk Assessment
             </h2>
             <div className="grid md:grid-cols-3 gap-4">
               {Object.entries(comprehensiveAnalysis.risk_assessment).map(
@@ -1460,13 +1481,22 @@ export default function DashboardPage() {
             </Link>
             <Link
               to="/chatbot"
-              className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 font-medium"
+              className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 font-medium flex items-center"
             >
-              🤖 Ask AI Assistant
+              <Bot className="w-4 h-4 mr-2" />
+              Ask AI Assistant
             </Link>
           </div>
         </div>
       </div>
+      
+      <Popup
+        isOpen={showPopup}
+        onClose={() => setShowPopup(false)}
+        title="AI Analysis Complete"
+        message="Enhanced insights are now available! Check out the new recommendations and risk assessments."
+        type="success"
+      />
     </Layout>
   );
 }

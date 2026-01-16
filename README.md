@@ -69,7 +69,7 @@ Users can interact with an embedded **ESG Implementation Assistant**.
 ### 🔌 APIs & Services
 - **Generative AI**: OpenRouter API / OpenAI API
   - Used for: Intelligent scoring, gap analysis, roadmap generation, and the conversational chatbot.
-- **PDF Generation**: ReportLab (Python) for downloadable assessment reports.
+- **PDF Generation**: ReportLab (Python) for downloadable assessment reports. 
 
 ## 🏗️ Architecture Overview
 

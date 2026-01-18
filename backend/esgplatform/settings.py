@@ -105,6 +105,46 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
+
+# Logging Configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'esgapp': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
@@ -159,10 +199,10 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
-# AI Configuration - DeepSeek
+# AI Configuration - Groq (not DeepSeek)
 GROQ_API_KEY = os.getenv('GROQ_API_KEY', '')
-AI_MODEL = os.getenv('AI_MODEL', 'deepseek-chat')
-AI_BASE_URL = os.getenv('AI_BASE_URL', 'https://api.deepseek.com/v1')
+AI_MODEL = os.getenv('AI_MODEL', 'llama-3.1-8b-instant')
+AI_BASE_URL = os.getenv('AI_BASE_URL', 'https://api.groq.com/openai/v1')
 
 # Google OAuth Configuration
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID', '')

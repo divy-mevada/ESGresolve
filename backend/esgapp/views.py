@@ -11,8 +11,11 @@ from django.utils import timezone
 import uuid
 import json
 import re
+import logging
 from openai import OpenAI
 from django.conf import settings
+
+logger = logging.getLogger(__name__)
 
 from .models import (
     BusinessProfile, ESGInput, ESGSnapshot, ESGRecommendation,
@@ -217,9 +220,9 @@ class ESGInputViewSet(viewsets.ModelViewSet):
         except Exception as e:
             import traceback
             error_detail = traceback.format_exc()
-            # Print to console for debugging
-            print(f"Error creating ESG input: {e}")
-            print(error_detail)
+            # Log for debugging
+            logger.error(f"Error creating ESG input: {e}")
+            logger.error(error_detail)
             return Response(
                 {
                     'error': str(e),
@@ -298,9 +301,9 @@ class ESGInputViewSet(viewsets.ModelViewSet):
             try:
                 scores_data = ai_scoring_service.calculate_esg_scores(esg_input)
             except Exception as ai_error:
-                print(f"AI scoring failed: {ai_error}")
+                logger.error(f"AI scoring failed: {ai_error}")
                 import traceback
-                print(traceback.format_exc())
+                logger.error(traceback.format_exc())
                 # Use fallback scoring
                 scores_data = ai_scoring_service._fallback_scoring(esg_input)
             
@@ -369,8 +372,8 @@ class ESGInputViewSet(viewsets.ModelViewSet):
         except Exception as e:
             import traceback
             error_detail = traceback.format_exc()
-            print(f"Error processing ESG input: {e}")
-            print(error_detail)
+            logger.error(f"Error processing ESG input: {e}")
+            logger.error(error_detail)
             return Response(
                 {
                     'error': str(e),
@@ -454,9 +457,9 @@ class ESGSnapshotViewSet(viewsets.ReadOnlyModelViewSet):
         try:
             return ESGSnapshot.objects.filter(business_profile__user=self.request.user)
         except Exception as e:
-            print(f"Error in get_queryset: {e}")
+            logger.error(f"Error in get_queryset: {e}")
             import traceback
-            print(f"Full traceback: {traceback.format_exc()}")
+            logger.error(f"Full traceback: {traceback.format_exc()}")
             return ESGSnapshot.objects.none()
     
     def list(self, request, *args, **kwargs):
@@ -464,9 +467,9 @@ class ESGSnapshotViewSet(viewsets.ReadOnlyModelViewSet):
         try:
             return super().list(request, *args, **kwargs)
         except Exception as e:
-            print(f"Error in ESGSnapshotViewSet.list: {e}")
+            logger.error(f"Error in ESGSnapshotViewSet.list: {e}")
             import traceback
-            print(f"Full traceback: {traceback.format_exc()}")
+            logger.error(f"Full traceback: {traceback.format_exc()}")
             return Response({
                 'error': str(e),
                 'detail': 'Failed to load snapshots',

@@ -23,10 +23,10 @@ const GoogleLoginButton = ({ onSuccess, onError }) => {
     <button
       onClick={handleGoogleLogin}
       disabled={loading}
-      className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+      className="w-full flex justify-center items-center px-4 py-2 bg-white border-2 border-moss rounded-sm text-sm font-bold uppercase tracking-wider text-moss hover:bg-cream hover:shadow-[4px_4px_0px_0px_#D2DCB6] focus:outline-none transition-all disabled:opacity-50"
     >
       {loading ? (
-        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900"></div>
+        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-moss"></div>
       ) : (
         <>
           <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">

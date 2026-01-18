@@ -13,19 +13,20 @@ class FreeAIService:
     """Enhanced AI service using free APIs for comprehensive ESG analysis"""
     
     def __init__(self):
-        self.deepseek_client = None
+        self.groq_client = None
         self.openrouter_client = None
         self.hf_api_key = os.getenv('HUGGINGFACE_API_KEY', '')
         
-        # Initialize DeepSeek client
+        # Initialize Groq client
         if settings.GROQ_API_KEY:
             try:
-                self.deepseek_client = OpenAI(
+                self.groq_client = OpenAI(
                     api_key=settings.GROQ_API_KEY,
                     base_url=settings.AI_BASE_URL
                 )
+                print(f"Groq client initialized with base URL: {settings.AI_BASE_URL}")
             except Exception as e:
-                print(f"Failed to initialize DeepSeek client: {e}")
+                print(f"Failed to initialize Groq client: {e}")
         
         # Initialize OpenRouter client (backup)
         openrouter_key = os.getenv('OPENROUTER_API_KEY', '')
@@ -35,16 +36,35 @@ class FreeAIService:
                     api_key=openrouter_key,
                     base_url="https://openrouter.ai/api/v1"
                 )
+                print("OpenRouter client initialized")
             except Exception as e:
                 print(f"Failed to initialize OpenRouter client: {e}")
     
     def get_available_client(self):
         """Get the first available AI client"""
-        if self.deepseek_client:
-            return self.deepseek_client, settings.AI_MODEL
+        if self.groq_client:
+            return self.groq_client, settings.AI_MODEL
         elif self.openrouter_client:
             return self.openrouter_client, "meta-llama/llama-3.1-8b-instruct:free"
         return None, None
+    
+    def test_connection(self):
+        """Test AI service connection"""
+        client, model = self.get_available_client()
+        if not client:
+            return False, "No AI client available"
+        
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "user", "content": "Hello, respond with 'Connection successful'"}
+                ],
+                max_tokens=10
+            )
+            return True, response.choices[0].message.content
+        except Exception as e:
+            return False, str(e)
     
     def generate_comprehensive_esg_analysis(self, esg_input) -> Dict:
         """Generate comprehensive ESG analysis with detailed insights"""
@@ -181,6 +201,13 @@ Return ONLY valid JSON without markdown formatting.
         
         client, model = self.get_available_client()
         if not client:
+            print("No AI client available, using fallback")
+            return self._fallback_chatbot_response(query, context)
+        
+        # Test connection first
+        connection_ok, test_result = self.test_connection()
+        if not connection_ok:
+            print(f"AI connection failed: {test_result}")
             return self._fallback_chatbot_response(query, context)
         
         # Prepare context-aware prompt
@@ -221,6 +248,7 @@ Keep responses concise but comprehensive (max 300 words)."""}
         messages.append({"role": "user", "content": query})
         
         try:
+            print(f"Sending request to AI model: {model}")
             response = client.chat.completions.create(
                 model=model,
                 messages=messages,
@@ -228,10 +256,13 @@ Keep responses concise but comprehensive (max 300 words)."""}
                 max_tokens=500
             )
             
-            return response.choices[0].message.content.strip()
+            ai_response = response.choices[0].message.content.strip()
+            print(f"AI response received: {ai_response[:100]}...")
+            return ai_response
             
         except Exception as e:
             print(f"Chatbot error: {e}")
+            print(f"Error type: {type(e).__name__}")
             return self._fallback_chatbot_response(query, context)
     
     def generate_esg_report_data(self, esg_input, analysis_data: Dict) -> Dict:

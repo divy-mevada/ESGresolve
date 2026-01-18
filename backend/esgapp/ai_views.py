@@ -249,13 +249,19 @@ def ai_service_status(request):
     ai_service = FreeAIService()
     client, model = ai_service.get_available_client()
     
+    # Test connection
+    connection_ok, test_result = ai_service.test_connection() if client else (False, "No client available")
+    
     status_info = {
         'groq_available': bool(ai_service.groq_client),
         'openrouter_available': bool(ai_service.openrouter_client),
         'huggingface_available': bool(ai_service.hf_api_key),
         'active_client': 'groq' if ai_service.groq_client else 'openrouter' if ai_service.openrouter_client else 'none',
         'active_model': model,
-        'service_operational': bool(client)
+        'service_operational': connection_ok,
+        'connection_test': test_result,
+        'api_key_configured': bool(settings.GROQ_API_KEY),
+        'base_url': settings.AI_BASE_URL
     }
     
     return Response(status_info)

@@ -40,10 +40,10 @@ export default function GoogleCallbackPage() {
   }, [navigate, googleLogin])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
-        <p className="mt-4 text-gray-600">Completing Google sign in...</p>
+    <div className="min-h-screen bg-cream flex items-center justify-center">
+      <div className="text-center p-8 border-2 border-moss rounded-sm bg-white shadow-[4px_4px_0px_0px_#D2DCB6]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-moss mx-auto mb-4"></div>
+        <p className="text-moss font-bold uppercase tracking-wider">Completing Google sign in...</p>
       </div>
     </div>
   )

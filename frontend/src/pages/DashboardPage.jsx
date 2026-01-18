@@ -45,14 +45,14 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-const COLORS = ["#10b981", "#3b82f6", "#8b5cf6"];
+const COLORS = ["#A1BC98", "#778873", "#D2DCB6"];
 const CHART_COLORS = [
-  "#ef4444",
-  "#f59e0b",
-  "#10b981",
-  "#3b82f6",
-  "#8b5cf6",
-  "#ec4899",
+  "#778873",
+  "#A1BC98",
+  "#D2DCB6",
+  "#F1F3E0",
+  "#4B5563",
+  "#9CA3AF",
 ];
 
 // Carbon footprint calculation helper
@@ -415,17 +415,17 @@ export default function DashboardPage() {
 
   return (
     <Layout>
-      <div className="space-y-6 min-h-screen p-6">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+      <div className="space-y-6 min-h-screen p-6 bg-cream">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white border-2 border-moss rounded-sm p-6 shadow-[4px_4px_0px_0px_#778873]">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Ultimate ESG Dashboard
+            <h1 className="text-3xl font-black text-moss tracking-tight">
+              ULTIMATE ESG DASHBOARD
             </h1>
             <div className="flex items-center space-x-4 mt-2">
               <AIStatusBadge />
               {comprehensiveAnalysis && (
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                  ✨ Enhanced with AI Insights
+                <span className="inline-flex items-center px-3 py-1 rounded-sm text-sm font-bold bg-sage text-moss border border-moss">
+                  ✨ AI INSIGHTS ACTIVE
                 </span>
               )}
             </div>
@@ -435,33 +435,33 @@ export default function DashboardPage() {
               <button
                 onClick={generateAIAnalysis}
                 disabled={aiLoading}
-                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 shadow-lg transition-all"
+                className="bg-moss text-cream px-6 py-2 rounded-sm hover:bg-leaf disabled:opacity-50 shadow-md transition-all font-bold border-2 border-moss hover:shadow-[2px_2px_0px_0px_#D2DCB6]"
               >
                 {aiLoading ? (
                   <span className="flex items-center">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    Analyzing...
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-cream mr-2"></div>
+                    PROCESSING...
                   </span>
                 ) : (
                   <span className="flex items-center">
                     <Bot className="w-4 h-4 mr-2" />
-                    Generate AI Analysis
+                    GENERATE ANALYSIS
                   </span>
                 )}
               </button>
             )}
             <Link
               to="/esg-form"
-              className="bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-2 rounded-lg hover:from-green-700 hover:to-green-800 shadow-lg transition-all"
+              className="bg-sage text-moss px-6 py-2 rounded-sm hover:bg-white shadow-md transition-all font-bold border-2 border-moss hover:shadow-[2px_2px_0px_0px_#778873]"
             >
-              New Assessment
+              NEW ASSESSMENT
             </Link>
           </div>
         </div>
 
         {/* Disclaimer */}
-        <div className="bg-white/80 border-l-4 border-yellow-400 p-4 rounded backdrop-blur-sm">
-          <p className="text-sm text-gray-700">
+        <div className="bg-white border-l-4 border-sage p-4 rounded-sm shadow-sm">
+          <p className="text-sm text-moss font-medium">
             <strong>Disclaimer:</strong> This assessment is indicative and does
             not constitute a certified ESG rating.
             {aiServiceStatus?.service_operational &&
@@ -471,92 +471,92 @@ export default function DashboardPage() {
 
         {/* Prescriptive Insights Section */}
         {dashboardInsights && (
-          <div className="bg-gradient-to-r from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-xl p-6 shadow-lg">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-              <Target className="w-5 h-5 mr-2 text-indigo-600" />
-              What Should I Focus On Right Now?
+          <div className="bg-cream border-2 border-moss rounded-sm p-6 shadow-[4px_4px_0px_0px_#778873]">
+            <h2 className="text-xl font-black text-moss mb-4 flex items-center tracking-tight">
+              <Target className="w-5 h-5 mr-2 text-moss" />
+              PRIORITY FOCUS AREAS
             </h2>
             <div className="grid md:grid-cols-3 gap-4">
               {/* This Month's Focus */}
-              <div className="bg-white/70 rounded-lg p-4 border-l-4 border-blue-500">
+              <div className="bg-white rounded-sm p-4 border-l-4 border-leaf shadow-sm border border-moss/10">
                 <div className="flex items-center mb-2">
-                  <Calendar className="w-5 h-5 mr-2 text-blue-600" />
-                  <h3 className="font-semibold text-gray-800">
-                    This Month's ESG Focus
+                  <Calendar className="w-5 h-5 mr-2 text-leaf" />
+                  <h3 className="font-bold text-moss">
+                    THIS MONTH'S FOCUS
                   </h3>
                 </div>
-                <p className="text-sm font-medium text-gray-900 mb-1">
+                <p className="text-sm font-bold text-moss mb-1">
                   {dashboardInsights.monthly_focus.action}
                 </p>
-                <p className="text-xs text-gray-600">
+                <p className="text-xs text-moss/70 font-medium">
                   {dashboardInsights.monthly_focus.reason}
                 </p>
                 <span
-                  className={`inline-block mt-2 px-2 py-1 rounded text-xs font-medium ${
+                  className={`inline-block mt-2 px-2 py-1 rounded-sm text-xs font-bold border ${
                     dashboardInsights.monthly_focus.category === "E"
-                      ? "bg-green-100 text-green-800"
+                      ? "bg-sage/20 text-moss border-sage"
                       : dashboardInsights.monthly_focus.category === "S"
-                      ? "bg-blue-100 text-blue-800"
-                      : "bg-purple-100 text-purple-800"
+                      ? "bg-leaf/20 text-moss border-leaf"
+                      : "bg-moss/10 text-moss border-moss"
                   }`}
                 >
                   {dashboardInsights.monthly_focus.category === "E"
-                    ? "Environmental"
+                    ? "ENVIRONMENTAL"
                     : dashboardInsights.monthly_focus.category === "S"
-                    ? "Social"
-                    : "Governance"}
+                    ? "SOCIAL"
+                    : "GOVERNANCE"}
                 </span>
               </div>
 
               {/* Biggest Risk */}
-              <div className="bg-white/70 rounded-lg p-4 border-l-4 border-red-500">
+              <div className="bg-white rounded-sm p-4 border-l-4 border-moss shadow-sm border border-moss/10">
                 <div className="flex items-center mb-2">
-                  <AlertTriangle className="w-5 h-5 mr-2 text-red-600" />
-                  <h3 className="font-semibold text-gray-800">
-                    Biggest ESG Risk
+                  <AlertTriangle className="w-5 h-5 mr-2 text-moss" />
+                  <h3 className="font-bold text-moss">
+                    CRITICAL RISK
                   </h3>
                 </div>
-                <p className="text-sm font-medium text-gray-900 mb-1">
+                <p className="text-sm font-bold text-moss mb-1">
                   {dashboardInsights.biggest_risk.description}
                 </p>
                 <div className="flex items-center justify-between mt-2">
-                  <span className="px-2 py-1 bg-red-100 text-red-800 rounded text-xs font-medium">
-                    {dashboardInsights.biggest_risk.impact} Impact
+                  <span className="px-2 py-1 bg-moss text-cream rounded-sm text-xs font-bold">
+                    {dashboardInsights.biggest_risk.impact.toUpperCase()} IMPACT
                   </span>
                   <span
-                    className={`px-2 py-1 rounded text-xs font-medium ${
+                    className={`px-2 py-1 rounded-sm text-xs font-bold border ${
                       dashboardInsights.biggest_risk.category === "E"
-                        ? "bg-green-100 text-green-800"
+                        ? "bg-sage/20 text-moss border-sage"
                         : dashboardInsights.biggest_risk.category === "S"
-                        ? "bg-blue-100 text-blue-800"
-                        : "bg-purple-100 text-purple-800"
+                        ? "bg-leaf/20 text-moss border-leaf"
+                        : "bg-moss/10 text-moss border-moss"
                     }`}
                   >
                     {dashboardInsights.biggest_risk.category === "E"
-                      ? "Environmental"
+                      ? "ENV"
                       : dashboardInsights.biggest_risk.category === "S"
-                      ? "Social"
-                      : "Governance"}
+                      ? "SOC"
+                      : "GOV"}
                   </span>
                 </div>
               </div>
 
               {/* Fastest Win */}
-              <div className="bg-white/70 rounded-lg p-4 border-l-4 border-green-500">
+              <div className="bg-white rounded-sm p-4 border-l-4 border-sage shadow-sm border border-moss/10">
                 <div className="flex items-center mb-2">
-                  <Lightning className="w-5 h-5 mr-2 text-green-600" />
-                  <h3 className="font-semibold text-gray-800">
-                    Fastest ESG Win
+                  <Lightning className="w-5 h-5 mr-2 text-sage" />
+                  <h3 className="font-bold text-moss">
+                    QUICK WIN
                   </h3>
                 </div>
-                <p className="text-sm font-medium text-gray-900 mb-1">
+                <p className="text-sm font-bold text-moss mb-1">
                   {dashboardInsights.fastest_win.action}
                 </p>
                 <div className="flex items-center justify-between mt-2">
-                  <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs font-medium">
-                    {dashboardInsights.fastest_win.effort} Effort
+                  <span className="px-2 py-1 bg-sage text-moss rounded-sm text-xs font-bold">
+                    {dashboardInsights.fastest_win.effort.toUpperCase()} EFFORT
                   </span>
-                  <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded text-xs font-medium">
+                  <span className="px-2 py-1 bg-cream text-moss rounded-sm text-xs font-bold border border-moss/20">
                     {dashboardInsights.fastest_win.timeline}
                   </span>
                 </div>
@@ -565,17 +565,17 @@ export default function DashboardPage() {
           </div>
         )}
         {comprehensiveAnalysis && (
-          <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 rounded-xl p-6 shadow-lg">
+          <div className="bg-cream border-2 border-moss rounded-sm p-6 shadow-[4px_4px_0px_0px_#778873]">
             <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white text-2xl mr-4">
+              <div className="w-12 h-12 bg-moss rounded-sm flex items-center justify-center text-white text-2xl mr-4 shadow-sm">
                 <Bot className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-900">
-                  AI Comprehensive Analysis
+                <h2 className="text-xl font-black text-moss tracking-tight">
+                  AI COMPREHENSIVE ANALYSIS
                 </h2>
-                <p className="text-gray-600">
-                  Enhanced insights powered by artificial intelligence
+                <p className="text-moss/70 font-medium">
+                  Enhanced insights powered by neural network models
                 </p>
               </div>
             </div>
@@ -586,27 +586,30 @@ export default function DashboardPage() {
                   ([category, insights]) => (
                     <div
                       key={category}
-                      className="bg-white/70 rounded-lg p-4 backdrop-blur-sm"
+                      className="bg-white rounded-sm p-4 border border-moss/20 shadow-sm"
                     >
-                      <h3 className="font-semibold text-gray-800 capitalize mb-2">
+                      <h3 className="font-bold text-moss capitalize mb-2 border-b-2 border-sage pb-1">
                         {category}
                       </h3>
                       {insights.current_performance && (
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm text-moss/80 mb-2 font-medium">
                           {insights.current_performance}
                         </p>
                       )}
                       {insights.key_strengths &&
                         insights.key_strengths.length > 0 && (
                           <div className="mb-2">
-                            <span className="text-xs font-medium text-green-700">
+                            <span className="text-xs font-bold text-leaf uppercase tracking-wider">
                               Strengths:
                             </span>
-                            <ul className="text-xs text-gray-600 ml-2">
+                            <ul className="text-xs text-moss/70 ml-2 mt-1 space-y-1">
                               {insights.key_strengths
                                 .slice(0, 2)
                                 .map((strength, idx) => (
-                                  <li key={idx}>• {strength}</li>
+                                  <li key={idx} className="flex items-start">
+                                    <span className="mr-1 text-leaf">•</span>
+                                    {strength}
+                                  </li>
                                 ))}
                             </ul>
                           </div>
@@ -621,91 +624,86 @@ export default function DashboardPage() {
 
         {/* Carbon Footprint Section - At the Top */}
         <div
-          className={`bg-gradient-to-br from-orange-50 to-red-50 border-2 ${
-            getEmissionStatusColor(carbonFootprint.status).includes("red")
-              ? "border-red-300"
-              : getEmissionStatusColor(carbonFootprint.status).includes(
-                  "yellow"
-                )
-              ? "border-yellow-300"
-              : "border-green-300"
-          } rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300`}
+          className={`bg-white border-2 border-moss rounded-sm p-6 shadow-[4px_4px_0px_0px_#778873] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-300`}
         >
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
               <div
-                className={`w-12 h-12 rounded-full ${getEmissionStatusColor(
+                className={`w-12 h-12 rounded-sm ${getEmissionStatusColor(
                   carbonFootprint.status
-                )} flex items-center justify-center text-2xl`}
+                )} flex items-center justify-center text-2xl border-2 border-moss`}
               >
                 <Globe className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-900">
-                  Carbon Footprint
+                <h2 className="text-xl font-black text-moss tracking-tight">
+                  CARBON FOOTPRINT
                 </h2>
-                <p className="text-sm text-gray-600">Estimated CO₂ Emissions</p>
+                <p className="text-sm text-moss/70 font-medium">Estimated CO₂ Emissions</p>
               </div>
             </div>
             <span
-              className={`px-4 py-2 rounded-full text-sm font-semibold ${getEmissionStatusColor(
+              className={`px-4 py-2 rounded-sm text-sm font-bold border-2 border-moss ${getEmissionStatusColor(
                 carbonFootprint.status
               )}`}
             >
-              {carbonFootprint.status.toUpperCase()} Impact
+              {carbonFootprint.status.toUpperCase()} IMPACT
             </span>
           </div>
           <div className="grid md:grid-cols-4 gap-4">
-            <div className="bg-white/70 rounded-lg p-4 backdrop-blur-sm">
-              <div className="text-sm text-gray-600 mb-1">
+            <div className="bg-cream rounded-sm p-4 border border-moss/10">
+              <div className="text-sm text-moss/70 mb-1 font-medium">
                 Monthly Emissions
               </div>
-              <div className="text-3xl font-bold text-gray-900">
+              <div className="text-3xl font-black text-moss">
                 {carbonFootprint.monthly.toFixed(2)}
               </div>
-              <div className="text-xs text-gray-500">tons CO₂</div>
+              <div className="text-xs text-moss/60 font-bold">tons CO₂</div>
             </div>
-            <div className="bg-white/70 rounded-lg p-4 backdrop-blur-sm">
-              <div className="text-sm text-gray-600 mb-1">Yearly Emissions</div>
-              <div className="text-3xl font-bold text-gray-900">
+            <div className="bg-cream rounded-sm p-4 border border-moss/10">
+              <div className="text-sm text-moss/70 mb-1 font-medium">Yearly Emissions</div>
+              <div className="text-3xl font-black text-moss">
                 {carbonFootprint.yearly.toFixed(2)}
               </div>
-              <div className="text-xs text-gray-500">tons CO₂</div>
+              <div className="text-xs text-moss/60 font-bold">tons CO₂</div>
             </div>
-            <div className="bg-white/70 rounded-lg p-4 backdrop-blur-sm">
-              <div className="text-sm text-gray-600 mb-1">Monthly (kg)</div>
-              <div className="text-3xl font-bold text-gray-900">
+            <div className="bg-cream rounded-sm p-4 border border-moss/10">
+              <div className="text-sm text-moss/70 mb-1 font-medium">Monthly (kg)</div>
+              <div className="text-3xl font-black text-moss">
                 {carbonFootprint.monthlyKg.toFixed(0)}
               </div>
-              <div className="text-xs text-gray-500">kg CO₂</div>
+              <div className="text-xs text-moss/60 font-bold">kg CO₂</div>
             </div>
-            <div className="bg-white/70 rounded-lg p-4 backdrop-blur-sm">
-              <div className="text-sm text-gray-600 mb-1">
+            <div className="bg-cream rounded-sm p-4 border border-moss/10">
+              <div className="text-sm text-moss/70 mb-1 font-medium">
                 Per Employee/Month
               </div>
-              <div className="text-3xl font-bold text-gray-900">
+              <div className="text-3xl font-black text-moss">
                 {analyticsData.employees > 0
                   ? (
                       carbonFootprint.monthlyKg / analyticsData.employees
                     ).toFixed(1)
                   : "0"}
               </div>
-              <div className="text-xs text-gray-500">kg CO₂</div>
+              <div className="text-xs text-moss/60 font-bold">kg CO₂</div>
             </div>
           </div>
 
           {/* Carbon Breakdown Chart */}
-          <div className="mt-4 bg-white/50 rounded-lg p-4">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">
+          <div className="mt-4 bg-cream border border-moss/10 rounded-sm p-4">
+            <h3 className="text-sm font-bold text-moss mb-3 uppercase tracking-wider">
               Emission Sources Breakdown (kg CO₂/month)
             </h3>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={carbonBreakdownData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip formatter={(value) => `${value.toFixed(2)} kg CO₂`} />
-                <Bar dataKey="value" fill="#ef4444" radius={[8, 8, 0, 0]} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#D2DCB6" />
+                <XAxis dataKey="name" tick={{fill: '#778873'}} axisLine={{stroke: '#778873'}} />
+                <YAxis tick={{fill: '#778873'}} axisLine={{stroke: '#778873'}} />
+                <Tooltip 
+                  formatter={(value) => `${value.toFixed(2)} kg CO₂`}
+                  contentStyle={{backgroundColor: '#F1F3E0', borderColor: '#778873', color: '#778873'}}
+                />
+                <Bar dataKey="value" fill="#778873" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -1626,3 +1624,4 @@ export default function DashboardPage() {
     </Layout>
   );
 }
+  

@@ -51,9 +51,9 @@ export default function ReportPage() {
   if (!selectedSnapshot) {
     return (
       <Layout>
-        <div className="text-center py-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">No Assessment Found</h2>
-          <p className="text-gray-600 mb-8">Complete an ESG assessment to generate a report.</p>
+        <div className="text-center py-12 bg-white border-2 border-moss rounded-sm shadow-[4px_4px_0px_0px_#D2DCB6] max-w-2xl mx-auto">
+          <h2 className="text-2xl font-black text-moss mb-4 uppercase tracking-tight">No Assessment Found</h2>
+          <p className="text-moss/80 mb-8 font-medium">Complete an ESG assessment to generate a report.</p>
         </div>
       </Layout>
     )
@@ -63,7 +63,7 @@ export default function ReportPage() {
     <Layout>
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900">ESG Report</h1>
+          <h1 className="text-3xl font-black text-moss uppercase tracking-tighter">ESG Report</h1>
           <div className="flex space-x-4">
             {snapshots.length > 1 && (
               <select
@@ -73,7 +73,7 @@ export default function ReportPage() {
                   setSelectedSnapshot(snapshot)
                   setReportHtml(null)
                 }}
-                className="px-4 py-2 border border-gray-300 rounded-lg"
+                className="px-4 py-2 border-2 border-moss rounded-sm bg-white focus:outline-none focus:shadow-[4px_4px_0px_0px_#A1BC98] font-medium"
               >
                 {snapshots.map((snapshot) => (
                   <option key={snapshot.id} value={snapshot.id}>
@@ -86,7 +86,7 @@ export default function ReportPage() {
               <button
                 onClick={handleGenerateReport}
                 disabled={loading}
-                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
+                className="bg-moss text-white border-2 border-moss px-6 py-2 rounded-sm hover:bg-leaf hover:text-moss hover:shadow-[4px_4px_0px_0px_#D2DCB6] disabled:opacity-50 font-bold uppercase tracking-wider transition-all"
               >
                 {loading ? 'Generating...' : 'Generate Report'}
               </button>
@@ -94,7 +94,7 @@ export default function ReportPage() {
             {reportHtml && (
               <button
                 onClick={handleDownload}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                className="bg-white text-moss border-2 border-moss px-6 py-2 rounded-sm hover:bg-cream hover:shadow-[4px_4px_0px_0px_#A1BC98] font-bold uppercase tracking-wider transition-all"
               >
                 Download/Print
               </button>
@@ -102,24 +102,24 @@ export default function ReportPage() {
           </div>
         </div>
 
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
-          <p className="text-sm text-gray-700">
-            <strong>Disclaimer:</strong> This report is indicative and does not constitute a certified ESG rating 
+        <div className="bg-cream border-2 border-moss p-4 rounded-sm shadow-[4px_4px_0px_0px_#D2DCB6]">
+          <p className="text-sm text-moss font-medium">
+            <strong className="font-black uppercase">Disclaimer:</strong> This report is indicative and does not constitute a certified ESG rating 
             or regulatory compliance advice. All outputs are based on provided data.
           </p>
         </div>
 
         {reportHtml ? (
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="bg-white rounded-sm border-2 border-moss shadow-[8px_8px_0px_0px_#A1BC98] p-8">
             <div dangerouslySetInnerHTML={{ __html: reportHtml }} />
           </div>
         ) : (
-          <div className="bg-white p-8 rounded-lg shadow-md text-center">
-            <p className="text-gray-600 mb-4">Click "Generate Report" to create your ESG assessment report.</p>
+          <div className="bg-white p-12 rounded-sm border-2 border-moss shadow-[8px_8px_0px_0px_#A1BC98] text-center">
+            <p className="text-moss/80 font-medium mb-6 text-lg">Click "Generate Report" to create your ESG assessment report.</p>
             <button
               onClick={handleGenerateReport}
               disabled={loading}
-              className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
+              className="bg-moss text-white border-2 border-moss px-8 py-3 rounded-sm hover:bg-leaf hover:text-moss hover:shadow-[4px_4px_0px_0px_#D2DCB6] disabled:opacity-50 font-bold uppercase tracking-wider transition-all"
             >
               {loading ? 'Generating...' : 'Generate Report'}
             </button>

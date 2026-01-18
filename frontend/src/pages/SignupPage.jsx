@@ -35,13 +35,13 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">ESG Resolve</h1>
-        <p className="text-center text-gray-600 mb-8">Create your account</p>
+    <div className="min-h-screen bg-cream flex items-center justify-center px-4">
+      <div className="max-w-md w-full bg-white border-2 border-moss shadow-[8px_8px_0px_0px_#A1BC98] rounded-sm p-8">
+        <h1 className="text-3xl font-black uppercase tracking-tighter text-center text-moss mb-2">ESG Resolve</h1>
+        <p className="text-center text-moss/70 font-medium mb-8">CREATE YOUR ACCOUNT</p>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
+          <div className="bg-red-50 border-2 border-red-700 text-red-700 px-4 py-3 rounded-sm mb-4 font-bold">
             {error}
           </div>
         )}
@@ -51,17 +51,17 @@ export default function SignupPage() {
         <div className="mt-6 mb-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
+              <div className="w-full border-t-2 border-gray-200" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or continue with email</span>
+              <span className="px-2 bg-white text-gray-500 font-medium uppercase tracking-wider">Or continue with email</span>
             </div>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="username" className="block text-sm font-bold uppercase tracking-wider text-moss mb-2">
               Username
             </label>
             <input
@@ -70,12 +70,12 @@ export default function SignupPage() {
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className="w-full px-4 py-2 bg-white border-2 border-moss rounded-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_#D2DCB6] transition-all"
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-bold uppercase tracking-wider text-moss mb-2">
               Email
             </label>
             <input
@@ -84,12 +84,12 @@ export default function SignupPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className="w-full px-4 py-2 bg-white border-2 border-moss rounded-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_#D2DCB6] transition-all"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="password" className="block text-sm font-bold uppercase tracking-wider text-moss mb-2">
               Password
             </label>
             <input
@@ -98,27 +98,27 @@ export default function SignupPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className="w-full px-4 py-2 bg-white border-2 border-moss rounded-sm focus:outline-none focus:shadow-[4px_4px_0px_0px_#D2DCB6] transition-all"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 disabled:opacity-50 font-semibold"
+            className="w-full bg-moss text-white border-2 border-moss py-2 px-4 rounded-sm hover:bg-leaf hover:text-moss hover:shadow-[4px_4px_0px_0px_#D2DCB6] disabled:opacity-50 font-bold uppercase tracking-wider transition-all"
           >
             {loading ? 'Creating account...' : 'Sign Up'}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-600">
+        <p className="mt-6 text-center text-sm text-moss font-medium">
           Already have an account?{' '}
-          <Link to="/login" className="text-green-600 hover:text-green-700 font-semibold">
+          <Link to="/login" className="text-leaf hover:text-moss font-bold underline decoration-2">
             Sign in
           </Link>
         </p>
 
-        <Link to="/" className="block mt-4 text-center text-sm text-gray-500 hover:text-gray-700">
+        <Link to="/" className="block mt-4 text-center text-sm text-moss/60 hover:text-moss font-bold uppercase tracking-wider">
           ← Back to home
         </Link>
       </div>

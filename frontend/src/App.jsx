@@ -34,7 +34,7 @@ function PrivateRoute({ children }) {
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -74,6 +74,14 @@ function App() {
           />
           <Route
             path="/chatbot"
+            element={
+              <PrivateRoute>
+                <ChatbotPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/ai-chatbot"
             element={
               <PrivateRoute>
                 <ChatbotPage />

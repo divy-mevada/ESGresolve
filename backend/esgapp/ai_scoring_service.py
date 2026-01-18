@@ -8,6 +8,10 @@ import json
 import re
 
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 class AIScoringService:
     """AI-powered ESG scoring using Llama model via Groq"""
     
@@ -19,7 +23,7 @@ class AIScoringService:
                     base_url=settings.AI_BASE_URL
                 )
             except Exception as e:
-                print(f"Failed to initialize OpenAI client: {e}")
+                logger.error(f"Failed to initialize OpenAI client: {e}")
                 self.client = None
         else:
             self.client = None
@@ -28,7 +32,7 @@ class AIScoringService:
         """Generate comprehensive ESG scores using AI"""
         
         if not self.client:
-            print("Groq API key not configured, using fallback scoring")
+            logger.warning("Groq API key not configured, using fallback scoring")
             return self._fallback_scoring(esg_input)
         
         # Prepare detailed business context
@@ -103,7 +107,7 @@ Return ONLY valid JSON without markdown formatting.
 """
         
         try:
-            print(f"Calling AI for ESG scoring with model: {settings.AI_MODEL}")
+            logger.info(f"Calling AI for ESG scoring with model: {settings.AI_MODEL}")
             response = self.client.chat.completions.create(
                 model=settings.AI_MODEL,
                 messages=[
@@ -115,21 +119,21 @@ Return ONLY valid JSON without markdown formatting.
             )
             
             content = response.choices[0].message.content
-            print(f"AI response received, length: {len(content)}")
+            logger.info(f"AI response received, length: {len(content)}")
             parsed_result = self._parse_ai_response(content, esg_input)
             
             # Log the scores for debugging
-            print(f"AI Scores - Environmental: {parsed_result.get('environmental_score')}, Social: {parsed_result.get('social_score')}, Governance: {parsed_result.get('governance_score')}, Overall: {parsed_result.get('overall_esg_score')}")
+            logger.info(f"AI Scores - Environmental: {parsed_result.get('environmental_score')}, Social: {parsed_result.get('social_score')}, Governance: {parsed_result.get('governance_score')}, Overall: {parsed_result.get('overall_esg_score')}")
             
             return parsed_result
             
         except Exception as e:
-            print(f"AI scoring error: {e}")
+            logger.error(f"AI scoring error: {e}")
             import traceback
-            print(traceback.format_exc())
-            print("Falling back to rule-based scoring")
+            logger.error(traceback.format_exc())
+            logger.info("Falling back to rule-based scoring")
             fallback_result = self._fallback_scoring(esg_input)
-            print(f"Fallback Scores - Environmental: {fallback_result.get('environmental_score')}, Social: {fallback_result.get('social_score')}, Governance: {fallback_result.get('governance_score')}, Overall: {fallback_result.get('overall_esg_score')}")
+            logger.info(f"Fallback Scores - Environmental: {fallback_result.get('environmental_score')}, Social: {fallback_result.get('social_score')}, Governance: {fallback_result.get('governance_score')}, Overall: {fallback_result.get('overall_esg_score')}")
             return fallback_result
     
     def _prepare_business_context(self, esg_input: ESGInput) -> str:
@@ -236,8 +240,8 @@ Governance Data:
                 }
                 return result
         except Exception as e:
-            print(f"Error parsing AI response: {e}")
-            print(f"Content: {content[:500]}")
+            logger.error(f"Error parsing AI response: {e}")
+            logger.error(f"Content: {content[:500]}")
         
         # If parsing fails, validate scores and fall back if needed
         # Check if parsed data exists and is valid, otherwise use fallback
@@ -260,7 +264,7 @@ Governance Data:
             )
             
             if not has_data and (env_score > 20 or social_score > 20 or gov_score > 20):
-                print("AI returned suspiciously high scores for empty data, using fallback")
+                logger.warning("AI returned suspiciously high scores for empty data, using fallback")
                 return self._fallback_scoring(esg_input)
             
             # Return parsed data if valid

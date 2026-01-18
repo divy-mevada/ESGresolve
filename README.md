@@ -1,3 +1,8 @@
+// Google sign-up might not work in some browser, so use normal login
+
+deployed on  - https://esg-resolve-067.vercel.app/
+video  uploaded in repo
+
 # ESG Resolve: AI-Powered ESG Analytics for SMEs
 
 ## 🌍 The Problem
@@ -64,7 +69,7 @@ Users can interact with an embedded **ESG Implementation Assistant**.
 ### 🔌 APIs & Services
 - **Generative AI**: OpenRouter API / OpenAI API
   - Used for: Intelligent scoring, gap analysis, roadmap generation, and the conversational chatbot.
-- **PDF Generation**: ReportLab (Python) for downloadable assessment reports.
+- **PDF Generation**: ReportLab (Python) for downloadable assessment reports. 
 
 ## 🏗️ Architecture Overview
 

@@ -13,7 +13,7 @@ Small and Medium Enterprises (SMEs) face increasing pressure from investors, cus
 - **Data Paralysis**: Collecting data is one thing; understanding what it means and how to act on it is another.
 
 ## 💡 The Solution
-**ESG Resolve** is an intelligent, accessible platform designed to democratize ESG readiness. It acts as a virtual Chief Sustainability Officer for SMEs, transforming raw business data into actionable strategies. By leveraging Generative AI, it provides the kind of personalized, deep analysis that was previously only available through high-cost consultancy.
+**ESG Resolve** is an intelligent, accessible platform designed to democratize ESG readiness. It acts as a virtual Chief Sustainability Officer for SMEs, transforming raw business data into actionable strategies. By leveraging Generative AI, it provides the kind of personalized, deep analysis that was previously only available through high-cost consultancy. 
 
 ## 🚀 How It Works
 
